@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erenros | Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Space+Grotesk:wght@300;700&display=swap');
+
+        :root {
+            --bg-color: #050510;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+            --neon-primary: #00f2ff; /* Bleu Cyan Ultimate */
+            --neon-secondary: #bc13fe; /* Violet Magique */
+            --text-glow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-color);
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            background: radial-gradient(circle at 50% 50%, #1a1a40 0%, #000000 100%);
+        }
+
+        /* Effet de particules mystiques (Frieren Vibe) */
+        .magic-dust {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: -1;
+            animation: float 20s linear infinite;
+        }
+
+        /* HEADER: L'entrée en matière */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 5rem;
+            margin: 0;
+            background: linear-gradient(to right, var(--neon-primary), white, var(--neon-secondary));
+            -webkit-background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(0, 242, 255, 0.3);
+            animation: pulse-aura 3s infinite ease-in-out;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.8;
+            letter-spacing: 5px;
+            margin-top: 1rem;
+        }
+
+        /* CONTAINER PROJETS */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            border-bottom: 2px solid var(--neon-secondary);
+            display: inline-block;
+            margin-bottom: 50px;
+            padding-bottom: 10px;
+        }
+
+        /* CARTE PROJET : Le style "Skill Card" */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* L'effet ULTIMATE au survol */
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--neon-primary);
+            box-shadow: 0 0 30px var(--neon-primary), inset 0 0 20px rgba(188, 19, 254, 0.2);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .video-box {
+            width: 100%;
+            height: 200px;
+            background: black;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            border: 1px solid #333;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 25px;
+            background: transparent;
+            border: 1px solid var(--neon-primary);
+            color: var(--neon-primary);
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: var(--neon-primary);
+            color: black;
+            box-shadow: 0 0 20px var(--neon-primary);
+        }
+
+        /* ANIMATIONS */
+        @keyframes pulse-aura {
+            0%, 100% { text-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
+            50% { text-shadow: 0 0 50px rgba(188, 19, 254, 0.6), 0 0 10px white; }
+        }
+
+        @keyframes float {
+            from { background-position: 0 0; }
+            to { background-position: 100px 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="magic-dust"></div>
+
+    <header>
+        <h1>ERENROS</h1>
+        <div class="subtitle">DEV // VISUAL // CODE</div>
+    </header>
+
+    <div class="container">
+        <h2>Grimoire de Projets</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="video-box">
+                    <span>VIDEO PREVIEW</span>
+                </div>
+                <h3>Nom du Projet Alpha</h3>
+                <p>Une description mystique de ton projet Git. Ce code fait des trucs incroyables.</p>
+                <a href="#" class="btn">Voir le Git</a>
+            </div>
+
+            <div class="card">
+                <div class="video-box">
+                    <span>VIDEO PREVIEW</span>
+                </div>
+                <h3>Projet Omega</h3>
+                <p>Création d'un système complexe. Calme en apparence, puissant à l'intérieur.</p>
+                <a href="#" class="btn">Voir le Git</a>
+            </div>
+
+             <div class="card">
+                <div class="video-box">
+                    <span>VIDEO PREVIEW</span>
+                </div>
+                <h3>Projet Frieren</h3>
+                <p>L'étude de la magie du code. Algorithmes anciens et designs modernes.</p>
+                <a href="#" class="btn">Voir le Git</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
