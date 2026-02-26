@@ -11,8 +11,8 @@
             --bg-color: #050510;
             --glass: rgba(255, 255, 255, 0.05);
             --border: rgba(255, 255, 255, 0.1);
-            --neon-primary: #00f2ff; /* Bleu Cyan Ultimate */
-            --neon-secondary: #bc13fe; /* Violet Magique */
+            --neon-primary: #00f2ff;
+            --neon-secondary: #bc13fe;
             --text-glow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
@@ -25,7 +25,6 @@
             background: radial-gradient(circle at 50% 50%, #1a1a40 0%, #000000 100%);
         }
 
-        /* Effet de particules mystiques (Frieren Vibe) */
         .magic-dust {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -36,7 +35,6 @@
             animation: float 20s linear infinite;
         }
 
-        /* HEADER: L'entrée en matière */
         header {
             height: 100vh;
             display: flex;
@@ -65,7 +63,6 @@
             margin-top: 1rem;
         }
 
-        /* CONTAINER PROJETS */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -81,7 +78,6 @@
             padding-bottom: 10px;
         }
 
-        /* CARTE PROJET : Le style "Skill Card" */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -99,37 +95,27 @@
             overflow: hidden;
         }
 
-        /* L'effet ULTIMATE au survol */
         .card:hover {
             transform: translateY(-10px) scale(1.02);
             border-color: var(--neon-primary);
             box-shadow: 0 0 30px var(--neon-primary), inset 0 0 20px rgba(188, 19, 254, 0.2);
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .card:hover::before {
-            left: 100%;
-        }
-
+        /* Style spécifique pour les vidéos */
         .video-box {
             width: 100%;
             height: 200px;
             background: black;
             border-radius: 8px;
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #555;
+            overflow: hidden;
             border: 1px solid #333;
+        }
+
+        .video-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Pour que la vidéo remplisse bien le cadre */
         }
 
         .btn {
@@ -143,8 +129,6 @@
             font-weight: bold;
             text-transform: uppercase;
             transition: 0.3s;
-            position: relative;
-            overflow: hidden;
         }
 
         .btn:hover {
@@ -153,7 +137,6 @@
             box-shadow: 0 0 20px var(--neon-primary);
         }
 
-        /* ANIMATIONS */
         @keyframes pulse-aura {
             0%, 100% { text-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
             50% { text-shadow: 0 0 50px rgba(188, 19, 254, 0.6), 0 0 10px white; }
@@ -180,29 +163,38 @@
         <div class="grid">
             <div class="card">
                 <div class="video-box">
-                    <span>VIDEO PREVIEW</span>
+                    <video src="assets/UIUX.mp4" autoplay loop muted playsinline></video>
                 </div>
-                <h3>Nom du Projet Alpha</h3>
-                <p>Une description mystique de ton projet Git. Ce code fait des trucs incroyables.</p>
-                <a href="#" class="btn">Voir le Git</a>
+                <h3>UI/UX Design</h3>
+                <p>Exploration d'interfaces modernes et fluides. Focus sur l'expérience utilisateur et le design visuel.</p>
+                <a href="#" class="btn">Voir le Projet</a>
             </div>
 
             <div class="card">
                 <div class="video-box">
-                    <span>VIDEO PREVIEW</span>
+                    <video src="assets/Moteur.mp4" autoplay loop muted playsinline></video>
                 </div>
-                <h3>Projet Omega</h3>
-                <p>Création d'un système complexe. Calme en apparence, puissant à l'intérieur.</p>
-                <a href="#" class="btn">Voir le Git</a>
+                <h3>Engine Development</h3>
+                <p>Développement de mécaniques backend et optimisation de moteurs pour une performance maximale.</p>
+                <a href="#" class="btn">Voir le Code</a>
             </div>
 
-             <div class="card">
+            <div class="card">
                 <div class="video-box">
-                    <span>VIDEO PREVIEW</span>
+                    <video src="assets/KindAberation.mp4" autoplay loop muted playsinline></video>
                 </div>
-                <h3>Projet Frieren</h3>
-                <p>L'étude de la magie du code. Algorithmes anciens et designs modernes.</p>
-                <a href="#" class="btn">Voir le Git</a>
+                <h3>Kind Aberation</h3>
+                <p>Une étude sur les effets visuels complexes et les shaders expérimentaux.</p>
+                <a href="#" class="btn">Détails</a>
+            </div>
+
+            <div class="card">
+                <div class="video-box">
+                    <video src="assets/Multi.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <h3>Système Multi</h3>
+                <p>Gestion multi-entités et synchronisation de données en temps réel.</p>
+                <a href="#" class="btn">Explorer</a>
             </div>
         </div>
     </div>
