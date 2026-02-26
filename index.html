@@ -76,6 +76,18 @@
             display: inline-block;
             margin-bottom: 50px;
             padding-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .section-separator {
+            margin-top: 100px;
+            opacity: 0.6;
+        }
+
+        .section-separator h2 {
+            font-size: 1.8rem;
+            border-bottom-color: var(--neon-primary);
         }
 
         .grid {
@@ -93,6 +105,8 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
         .card:hover {
@@ -101,7 +115,17 @@
             box-shadow: 0 0 30px var(--neon-primary), inset 0 0 20px rgba(188, 19, 254, 0.2);
         }
 
-        /* Style spécifique pour les vidéos */
+        .card-archive {
+            border-top: 3px solid var(--neon-secondary);
+            background: rgba(255, 255, 255, 0.03);
+            min-height: 200px;
+        }
+
+        .card-archive h3 {
+            margin-top: 0;
+            color: var(--neon-secondary);
+        }
+
         .video-box {
             width: 100%;
             height: 200px;
@@ -120,7 +144,7 @@
 
         .btn {
             display: inline-block;
-            margin-top: 15px;
+            margin-top: auto;
             padding: 10px 25px;
             background: transparent;
             border: 1px solid var(--neon-primary);
@@ -129,6 +153,7 @@
             font-weight: bold;
             text-transform: uppercase;
             transition: 0.3s;
+            text-align: center;
         }
 
         .btn:hover {
@@ -158,24 +183,30 @@
     </header>
 
     <div class="container">
-        <h2>Projets réalisé</h2>
+        <h2>Projets Réalisés</h2>
         
         <div class="grid">
             <div class="card">
                 <div class="video-box">
                     <video src="assets/TestsUnitaire.mp4" autoplay loop muted playsinline></video>
                 </div>
-                <h3>Programmation avancer</h3>
-                <p>Programmation avancer en C# en utilisant les test unitaires.</p>
+                <h3>Programmation avancée (C#)</h3>
+                <p>Programmation avancée en C# en utilisant les tests unitaires.</p>
                 <a href="https://github.com/Erenros/TestUnitaire" class="btn" target="_blank">Git du Projet</a>
+            </div>
+
+            <div class="card card-archive">
+                <h3>Sauvegarde</h3>
+                <p>Système de sauvegarde et de chargement dans un jeu point and click.</p>
+                <a href="https://github.com/Erenros/Save-Point-and-click-" class="btn" target="_blank">Git du Projet</a>
             </div>
 
             <div class="card">
                 <div class="video-box">
                     <video src="assets/FPS.mp4" autoplay loop muted playsinline></video>
                 </div>
-                <h3>FPS</h3>
-                <p>Réalisation d'un jeu FPS sur Unity apres découverte de plusieurs aspect du moteur.</p>
+                <h3>FPS (Unity 6)</h3>
+                <p>Réalisation d'un jeu FPS sur Unity après découverte du moteur Unity.</p>
                 <a href="https://github.com/Erenros/FPS" class="btn" target="_blank">Git du Projet</a>
             </div>
 
@@ -183,8 +214,8 @@
                 <div class="video-box">
                     <video src="assets/Procedural.mp4" autoplay loop muted playsinline></video>
                 </div>
-                <h3>Génération Procèdural</h3>
-                <p>Jeu avec exploration d'un monde en génération procèdural et de donjon également généré procèduralement.</p>
+                <h3>Génération Procédurale (Unity 6)</h3>
+                <p>Exploration d'un monde et de donjons générés aléatoirement.</p>
                 <a href="https://github.com/Erenros/Procedural" class="btn" target="_blank">Git du Projet</a>
             </div>
 
@@ -192,8 +223,8 @@
                 <div class="video-box">
                     <video src="assets/3CFREEDODOPOURLESGTECHS.mp4" autoplay loop muted playsinline></video>
                 </div>
-                <h3>3C</h3>
-                <p>Utilisation des 3C sur Unity.</p>
+                <h3>Système 3C (Unity 6)</h3>
+                <p>Optimisation des contrôles, de la caméra et des mouvements sur Unity.</p>
                 <a href="https://github.com/Erenros/3C" class="btn" target="_blank">Git du Projet</a>
             </div>
             
@@ -201,8 +232,8 @@
                 <div class="video-box">
                     <video src="assets/UIUX.mp4" autoplay loop muted playsinline></video>
                 </div>
-                <h3>UI/UX</h3>
-                <p>Focus sur la l'UI et UX dans un jeu réalisé uniquement avec les UI.</p>
+                <h3>Interface UI/UX (Unity 6)</h3>
+                <p>Focus sur l'ergonomie et le design d'interface utilisateur.</p>
                 <a href="https://github.com/Erenros/UIUXRevolutionDawn" class="btn" target="_blank">Git du Projet</a>
             </div>
 
@@ -210,17 +241,38 @@
                 <div class="video-box">
                     <video src="assets/KindAberation.mp4" autoplay loop muted playsinline></video>
                 </div>
-                <h3>Shader</h3>
-                <p>Projet se concentrant sur les shaders et leurs utilisation.</p>
+                <h3>Shaders (Unity 6)</h3>
+                <p>Recherche visuelle et création d'effets post-process pour un bon rendu visuel.</p>
                 <a href="https://github.com/Erenros/Shader" class="btn" target="_blank">Git du Projet</a>
             </div>
+        </div>
 
-            <div class="card">
-                <div class="video-box">
-                    <video src="assets/Multi.mp4" autoplay loop muted playsinline></video>
-                </div>
+        <div class="section-separator">
+            <h2>Début programmation dans le Jeu Vidéo (C++ sans moteur)</h2>
+        </div>
+
+        <div class="grid">
+            <div class="card card-archive">
+                <h3>Casse brique + value</h3>
+                <p>Casse brique avec des ajouts pour rendre le jeu plus fun.</p>
+                <a href="https://github.com/Erenros/CasseBrique" class="btn" target="_blank">Git du Projet</a>
+            </div>
+
+            <div class="card card-archive">
+                <h3>IA State Machine</h3>
+                <p>Création d'un jeu de rugby avec une state machine.</p>
+                <a href="https://github.com/Erenros/IA-Rugby" class="btn" target="_blank">Git du Projet</a>
+            </div>
+
+            <div class="card card-archive">
+                <h3>ShootEmUp</h3>
+                <p>Projet réaliser suite a la demande du musée de l'automobile Malartre.</p>
+                <a href="https://github.com/Erenros/ShoorEmUp" class="btn" target="_blank">Git du Projet</a>
+            </div>
+
+            <div class="card card-archive">
                 <h3>Multijoueur</h3>
-                <p>Mise en place d'un mode multijoueur avec une connexion IP.</p>
+                <p>Multijoueur avec connexion Ip.</p>
                 <a href="https://github.com/Erenros/A2Multijoueur" class="btn" target="_blank">Git du Projet</a>
             </div>
 
@@ -229,10 +281,9 @@
                     <video src="assets/Moteur.mp4" autoplay loop muted playsinline></video>
                 </div>
                 <h3>Moteur DX12</h3>
-                <p>Développement d'un moteur en DX12.</p>
+                <p>Création d'un moteur avec Direct X 12</p>
                 <a href="https://github.com/Erenros/Moteur" class="btn" target="_blank">Git du Projet</a>
             </div>
-            
         </div>
     </div>
 
