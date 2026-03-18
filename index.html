@@ -25,52 +25,56 @@
             color: white;
             font-family: 'Fredoka', sans-serif;
             overflow-x: hidden;
-            /* Fond plus coloré et dynamique */
             background: 
                 radial-gradient(circle at 20% 30%, rgba(106, 0, 255, 0.15) 0%, transparent 40%),
                 radial-gradient(circle at 80% 70%, rgba(255, 0, 127, 0.1) 0%, transparent 40%),
                 linear-gradient(180deg, #050510 0%, #0a0a20 100%);
         }
 
-        /* --- OBJETS FLOTTANTS CLICHÉS --- */
+        /* --- ANIMATIONS GLITCH ALÉATOIRES (OBJETS) --- */
+        @keyframes glitch-spasm {
+            0%, 90%, 100% { transform: translate(0,0) scale(1); filter: hue-rotate(0deg); opacity: 0.5; }
+            91% { transform: translate(-20px, 10px) scale(1.2); filter: hue-rotate(90deg); opacity: 1; }
+            93% { transform: translate(20px, -5px) scale(0.8) skew(20deg); filter: hue-rotate(180deg); }
+            95% { transform: translate(-10px, -20px) scale(1.5); clip-path: inset(20% 0 50% 0); }
+            97% { transform: translate(15px, 15px) scale(1.1); filter: hue-rotate(270deg); }
+        }
+
+        /* --- ANIMATION GLITCH INTERACTIF (HOVER) --- */
+        @keyframes hover-glitch-action {
+            0% { transform: translate(0); text-shadow: 2px 2px var(--c-red), -2px -2px var(--c-neon); }
+            25% { transform: translate(-3px, 2px); clip-path: inset(10% 0 40% 0); }
+            50% { transform: translate(3px, -2px); text-shadow: -2px 2px var(--c-pink), 2px -2px var(--c-purple); }
+            75% { transform: translate(-1px, -1px); clip-path: inset(50% 0 10% 0); }
+            100% { transform: translate(0); }
+        }
+
+        /* --- OBJETS FLOTTANTS --- */
         .floating-deco {
             position: fixed;
             pointer-events: none;
             z-index: -1;
-            opacity: 0.5;
             filter: drop-shadow(0 0 10px rgba(0,242,255,0.3));
         }
 
-        /* Palmier cliché */
-        .deco-palm { top: 10%; left: 5%; font-size: 80px; animation: float-chaos 8s infinite ease-in-out; color: #00ff6a; }
-        /* Oeil flottant */
-        .deco-eye { top: 60%; right: 10%; font-size: 50px; animation: float-chaos 6s infinite reverse; color: #fff; }
-        /* Forme géométrique */
-        .deco-shape { bottom: 20%; left: 15%; font-size: 40px; animation: rotate-glitch 10s infinite linear; color: var(--c-purple); }
-        /* Oiseau/Birdy */
-        .deco-bird { top: 40%; left: 50%; font-size: 30px; animation: fly 12s infinite linear; color: var(--c-neon); }
+        /* On combine le flottement doux et le spasme aléatoire avec des durées différentes */
+        .deco-palm { top: 15%; left: 5%; font-size: 80px; color: #00ff6a; animation: float-chaos 8s infinite ease-in-out, glitch-spasm 12s infinite; }
+        .deco-eye { top: 55%; right: 8%; font-size: 60px; color: #fff; animation: float-chaos 6s infinite reverse, glitch-spasm 7s infinite; }
+        .deco-shape { bottom: 15%; left: 12%; font-size: 45px; color: var(--c-purple); animation: rotate-glitch 10s infinite linear, glitch-spasm 15s infinite; }
+        .deco-bird { top: 35%; left: 45%; font-size: 35px; color: var(--c-neon); animation: fly 15s infinite linear, glitch-spasm 9s infinite; }
 
         @keyframes float-chaos {
-            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
-            33% { transform: translate(30px, -50px) rotate(10deg) scale(1.1); }
-            66% { transform: translate(-20px, 20px) rotate(-5deg) scale(0.9); }
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, -30px) rotate(5deg); }
         }
-
-        @keyframes rotate-glitch {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes fly {
-            0% { transform: translate(-100vw, 0) rotate(10deg); }
-            100% { transform: translate(100vw, -50px) rotate(-10deg); }
-        }
+        @keyframes rotate-glitch { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes fly { 0% { left: -10%; } 100% { left: 110%; } }
 
         /* --- NAVIGATION --- */
         nav {
             position: fixed;
             top: 0; width: 100%;
-            background: rgba(3, 3, 5, 0.8);
+            background: rgba(3, 3, 5, 0.85);
             backdrop-filter: blur(15px);
             z-index: 2000;
             padding: 15px 0;
@@ -85,11 +89,16 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             font-weight: 700;
-            transition: 0.3s;
+            display: inline-block;
+            transition: 0.2s;
             opacity: 0.7;
         }
 
-        nav a:hover { opacity: 1; color: var(--c-neon); text-shadow: 0 0 10px var(--c-neon); }
+        nav a:hover { 
+            opacity: 1; 
+            color: var(--c-neon); 
+            animation: hover-glitch-action 0.3s infinite;
+        }
 
         /* --- HEADER --- */
         header {
@@ -101,22 +110,13 @@
             text-align: center;
         }
 
-        .floating-container {
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-25px); }
-        }
-
         h1 {
             font-family: 'Bungee', cursive;
             font-size: clamp(3.5rem, 15vw, 9rem);
             margin: 0;
-            position: relative;
             color: white;
             text-shadow: 5px 5px 0px var(--c-purple);
+            animation: float 4s ease-in-out infinite;
         }
 
         .subtitle {
@@ -129,7 +129,7 @@
             font-weight: bold;
         }
 
-        /* --- CONTENU --- */
+        /* --- CONTENU & CARTES --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -142,40 +142,29 @@
             border-left: 5px solid var(--c-neon);
             padding-left: 15px;
             margin: 80px 0 40px 0;
-            text-transform: uppercase;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
         }
 
         .card {
             background: var(--glass);
             border: 1px solid var(--border);
-            padding: 20px;
+            padding: 25px;
             transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
         }
 
         .card:hover {
-            border-color: var(--c-neon);
-            transform: scale(1.02);
-            background: rgba(255,255,255,0.08);
-            box-shadow: 0 10px 30px rgba(0,242,255,0.1);
+            border-color: var(--c-pink);
+            background: rgba(255, 0, 127, 0.05);
+            animation: hover-glitch-action 0.4s infinite;
+            cursor: pointer;
         }
 
         .video-box {
-            width: 100%;
-            height: 180px;
-            background: #000;
-            margin-bottom: 15px;
-            overflow: hidden;
+            width: 100%; height: 180px;
+            background: #000; margin-bottom: 15px;
             border: 1px solid #222;
         }
-
-        .video-box video { width: 100%; height: 100%; object-fit: cover; }
 
         .btn {
             display: block;
@@ -188,10 +177,13 @@
             font-weight: bold;
             text-transform: uppercase;
             font-size: 0.8rem;
-            transition: 0.3s;
         }
 
-        .btn:hover { background: var(--c-neon); color: black; box-shadow: 0 0 20px var(--c-neon); }
+        .btn:hover {
+            background: var(--c-neon);
+            color: black;
+            animation: hover-glitch-action 0.2s infinite;
+        }
 
         /* --- SKILLS --- */
         .skills-grid {
@@ -205,17 +197,20 @@
             border: 1px solid var(--border);
             padding: 20px;
             text-align: center;
-            transition: 0.3s;
         }
-        .skill-badge:hover { border-color: var(--c-pink); color: var(--c-pink); }
 
-        .skill-badge i { font-size: 2rem; color: var(--c-neon); margin-bottom: 10px; display: block; }
+        .skill-badge:hover {
+            animation: hover-glitch-action 0.3s infinite;
+            border-color: var(--c-neon);
+            color: var(--c-neon);
+        }
+
+        .skill-badge i { font-size: 2rem; margin-bottom: 10px; display: block; }
 
         .imagination-badge {
             background: white !important;
             color: black !important;
             font-family: 'Bungee';
-            border: none;
         }
 
         /* --- CONTACT --- */
@@ -231,12 +226,20 @@
             color: white;
             text-decoration: none;
             font-size: 1.5rem;
-            transition: 0.3s;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-        .contact-link:hover { color: var(--c-neon); transform: translateY(-10px); }
+
+        .contact-link:hover {
+            animation: hover-glitch-action 0.3s infinite;
+            color: var(--c-pink);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
 
     </style>
 </head>
@@ -250,23 +253,20 @@
     <nav>
         <a href="#propos">À Propos</a>
         <a href="#projets">Projets Unity</a>
-        <a href="#cpp">C++</a>
         <a href="#competences">Compétences</a>
         <a href="#contact">Contact</a>
     </nav>
 
     <header>
-        <div class="floating-container">
-            <h1>ERENROS</h1>
-            <div class="subtitle">THIS PLACE IS BUILT FOR YOU</div>
-        </div>
+        <h1>ERENROS</h1>
+        <div class="subtitle">THIS PLACE IS BUILT FOR YOU</div>
     </header>
 
     <div class="container">
         
         <section id="propos">
             <h2>À Propos</h2>
-            <div class="card" style="font-size: 1.1rem; line-height: 1.7;">
+            <div class="card">
                 Passionné par les jeux vidéo et la création, j'apprends à devenir développeur. 
                 Aujourd'hui étudiant en 3e année, je me spécialise dans la programmation de jeux vidéo 
                 pour offrir des expériences fluides, performantes et surtout mémorables pour les joueurs.
@@ -288,8 +288,7 @@
                 <p>Focus sur le feedback utilisateur et l'ergonomie.</p>
                 <a href="https://github.com/Erenros/UIUXRevolutionDawn" class="btn" target="_blank">Git du Projet</a>
             </div>
-            
-            </div>
+        </div>
 
         <h2 id="competences">Compétences Techniques</h2>
         <div class="skills-grid">
@@ -298,7 +297,6 @@
             <div class="skill-badge"><i class="fa-brands fa-unity"></i><span>Unity 6</span></div>
             <div class="skill-badge"><i class="fa-solid fa-gamepad"></i><span>Game Design</span></div>
             <div class="skill-badge"><i class="fa-solid fa-object-group"></i><span>UI / UX</span></div>
-            <div class="skill-badge"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Shader / VFX</span></div>
             <div class="skill-badge"><i class="fa-brands fa-git-alt"></i><span>Git</span></div>
             <div class="skill-badge imagination-badge">
                 <i class="fa-solid fa-brain"></i>
@@ -317,7 +315,7 @@
     </div>
 
     <footer style="text-align: center; padding: 60px; opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px;">
-        ERENROS © 2026 - BUILT WITH IMAGINATION
+        ERENROS © 2026 - ERROR: SYSTEM_STABLE_FALSE
     </footer>
 
 </body>
