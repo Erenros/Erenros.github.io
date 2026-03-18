@@ -17,6 +17,10 @@
             --text-glow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
+        html {
+            scroll-behavior: smooth; /* Pour un saut fluide entre les sections */
+        }
+
         body {
             margin: 0;
             background-color: var(--bg-color);
@@ -24,6 +28,37 @@
             font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
             background: radial-gradient(circle at 50% 50%, #1a1a40 0%, #000000 100%);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 16, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            opacity: 0.7;
+        }
+
+        nav a:hover {
+            opacity: 1;
+            color: var(--neon-primary);
+            text-shadow: 0 0 10px var(--neon-primary);
         }
 
         .magic-dust {
@@ -37,13 +72,14 @@
         }
 
         header {
-            height: 100vh;
+            height: 70vh; /* Réduit pour éviter trop de vide */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             position: relative;
+            padding-top: 60px;
         }
 
         h1 {
@@ -67,7 +103,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 50px 20px;
+            padding: 20px; /* Réduit pour coller au header */
         }
 
         h2 {
@@ -75,7 +111,7 @@
             font-size: 2.5rem;
             border-bottom: 2px solid var(--neon-secondary);
             display: inline-block;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             padding-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 3px;
@@ -88,25 +124,21 @@
             border-radius: 15px;
             line-height: 1.8;
             font-size: 1.1rem;
-            margin-bottom: 80px;
+            margin-bottom: 100px;
             border-left: 5px solid var(--neon-primary);
             backdrop-filter: blur(10px);
         }
 
         .section-separator {
-            margin-top: 100px;
-            opacity: 0.6;
-        }
-
-        .section-separator h2 {
-            font-size: 1.8rem;
-            border-bottom-color: var(--neon-primary);
+            margin-top: 80px;
+            opacity: 0.8;
         }
 
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
+            margin-bottom: 60px;
         }
 
         .card {
@@ -116,66 +148,32 @@
             border-radius: 15px;
             padding: 20px;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
         }
 
         .card:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-10px);
             border-color: var(--neon-primary);
-            box-shadow: 0 0 30px var(--neon-primary), inset 0 0 20px rgba(188, 19, 254, 0.2);
-        }
-
-        .card-archive {
-            border-top: 3px solid var(--neon-secondary);
-            background: rgba(255, 255, 255, 0.03);
-            min-height: 200px;
-        }
-
-        .card-archive h3 {
-            margin-top: 0;
-            color: var(--neon-secondary);
+            box-shadow: 0 0 30px var(--neon-primary);
         }
 
         .video-box {
-            width: 100%;
-            height: 200px;
-            background: black;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            overflow: hidden;
-            border: 1px solid #333;
+            width: 100%; height: 200px; background: black; border-radius: 8px;
+            margin-bottom: 15px; overflow: hidden; border: 1px solid #333;
         }
 
-        .video-box video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .video-box video { width: 100%; height: 100%; object-fit: cover; }
 
         .btn {
-            display: inline-block;
-            margin-top: auto;
-            padding: 10px 25px;
-            background: transparent;
-            border: 1px solid var(--neon-primary);
-            color: var(--neon-primary);
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            transition: 0.3s;
-            text-align: center;
+            display: inline-block; margin-top: auto; padding: 10px 25px;
+            background: transparent; border: 1px solid var(--neon-primary);
+            color: var(--neon-primary); text-decoration: none; font-weight: bold;
+            text-transform: uppercase; transition: 0.3s; text-align: center;
         }
 
-        .btn:hover {
-            background: var(--neon-primary);
-            color: black;
-            box-shadow: 0 0 20px var(--neon-primary);
-        }
+        .btn:hover { background: var(--neon-primary); color: black; box-shadow: 0 0 20px var(--neon-primary); }
 
-        /* --- SECTION SKILLS ICONES --- */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -184,73 +182,74 @@
         }
 
         .skill-badge {
-            background: var(--glass);
-            border: 1px solid var(--border);
-            padding: 25px 15px;
-            border-radius: 12px;
+            background: var(--glass); border: 1px solid var(--border); padding: 25px 15px;
+            border-radius: 12px; text-align: center; transition: 0.3s;
+            display: flex; flex-direction: column; align-items: center; gap: 15px;
+        }
+
+        .skill-badge i { font-size: 2.5rem; color: var(--neon-primary); }
+
+        /* --- SECTION CONTACT --- */
+        .contact-container {
             text-align: center;
-            transition: 0.3s;
+            padding: 80px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            margin-bottom: 50px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            color: white;
+            text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
+            transition: 0.3s;
         }
 
-        .skill-badge i {
-            font-size: 2.5rem;
+        .contact-item i {
+            font-size: 3rem;
+            color: var(--neon-secondary);
+        }
+
+        .contact-item:hover {
             color: var(--neon-primary);
-            text-shadow: 0 0 10px var(--neon-primary);
+            transform: translateY(-5px);
         }
 
-        .skill-badge span {
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
+        .contact-item:hover i {
+            color: var(--neon-primary);
+            text-shadow: 0 0 20px var(--neon-primary);
         }
 
-        .skill-badge:hover {
-            border-color: var(--neon-secondary);
-            transform: scale(1.05);
-            background: rgba(188, 19, 254, 0.1);
-            box-shadow: 0 0 20px rgba(188, 19, 254, 0.3);
-        }
-
-        /* Style spécial pour l'imagination */
-        .skill-imagination {
-            border: 1px dashed var(--neon-secondary);
-            background: linear-gradient(45deg, rgba(0, 242, 255, 0.05), rgba(188, 19, 254, 0.05));
-        }
-        
-        .skill-imagination i {
-            color: white;
-            animation: star-glow 2s infinite alternate;
-        }
-
-        @keyframes star-glow {
-            from { text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-primary); }
-            to { text-shadow: 0 0 20px #fff, 0 0 30px var(--neon-secondary); }
-        }
-
-        footer {
-            text-align: center;
-            padding: 50px;
-            opacity: 0.5;
-            font-size: 0.8rem;
-        }
+        footer { text-align: center; padding: 50px; opacity: 0.5; font-size: 0.8rem; }
 
         @keyframes pulse-aura {
             0%, 100% { text-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
-            50% { text-shadow: 0 0 50px rgba(188, 19, 254, 0.6), 0 0 10px white; }
+            50% { text-shadow: 0 0 50px rgba(188, 19, 254, 0.6); }
         }
 
-        @keyframes float {
-            from { background-position: 0 0; }
-            to { background-position: 100px 100px; }
-        }
+        @keyframes float { from { background-position: 0 0; } to { background-position: 100px 100px; } }
     </style>
 </head>
 <body>
+
+    <nav>
+        <a href="#about">À Propos</a>
+        <a href="#projects">Projets</a>
+        <a href="#skills">Compétences</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
     <div class="magic-dust"></div>
 
@@ -260,169 +259,62 @@
     </header>
 
     <div class="container">
-        <div class="about-box">
+        <div id="about" class="about-box">
             <h2>À Propos</h2>
             <p>
                 Passionné par les jeux vidéo et la création de façon plus générale, j'apprends à devenir développeur. 
-                En plus de vouloir créer le code le plus performant possible, je fais en sorte que les jeux que je crée 
-                soient les plus agréables et fun possibles pour les joueurs afin de leur donner la meilleure 
-                expérience vidéoludique possible. Aujourd'hui, je suis étudiant en 3ᵉ année de développement 
-                informatique, spécialisé en programmation de jeux vidéo.
+                Si j'ai à cœur de concevoir le code le plus performant possible, ma priorité absolue est de créer des 
+                expériences **fun et agréables** pour les joueurs. Mon objectif est de mettre la technique au service 
+                du plaisir de jeu pour offrir la meilleure expérience vidéoludique possible. 
+                Aujourd'hui, je suis étudiant en 3ᵉ année de développement informatique, spécialisé en programmation de jeux vidéo.
             </p>
         </div>
 
-        <h2>Projets Réalisés</h2>
+        <h2 id="projects">Projets Réalisés</h2>
         
         <div class="grid">
             <div class="card">
-                <div class="video-box">
-                    <video src="assets/ENARIA_OuvertureOnglets.mp4" autoplay loop muted playsinline></video>
-                </div>
+                <div class="video-box"><video src="assets/ENARIA_OuvertureOnglets.mp4" autoplay loop muted playsinline></video></div>
                 <h3>ENARIA</h3>
-                <p>Projet avec vrais équipe mais aussi découverte de Unity, développement d'outils et de l'UI.</p>
+                <p>Développement d'outils et de l'UI sous Unity en équipe.</p>
                 <a href="https://github.com/Erenros/ENARIA" class="btn" target="_blank">Git du Projet</a>
             </div>
-            
             <div class="card">
-                <div class="video-box">
-                    <video src="assets/TestsUnitaire.mp4" autoplay loop muted playsinline></video>
-                </div>
-                <h3>Programmation avancée (C#)</h3>
-                <p>Programmation avancée en C# en utilisant les tests unitaires.</p>
-                <a href="https://github.com/Erenros/TestUnitaire" class="btn" target="_blank">Git du Projet</a>
-            </div>
-
-            <div class="card card-archive">
-                <h3>Sauvegarde</h3>
-                <p>Système de sauvegarde et de chargement dans un jeu point and click avec json et firebase (Unity 6).</p>
-                <a href="https://github.com/Erenros/Save-Point-and-click-" class="btn" target="_blank">Git du Projet</a>
-            </div>
-
-            <div class="card">
-                <div class="video-box">
-                    <video src="assets/FPS.mp4" autoplay loop muted playsinline></video>
-                </div>
+                <div class="video-box"><video src="assets/FPS.mp4" autoplay loop muted playsinline></video></div>
                 <h3>FPS (Unity 6)</h3>
-                <p>Réalisation d'un jeu FPS sur Unity après découverte des fonctionalitées du moteur Unity.</p>
+                <p>Réalisation d'un shooter complet explorant les fonctionnalités du moteur.</p>
                 <a href="https://github.com/Erenros/FPS" class="btn" target="_blank">Git du Projet</a>
             </div>
-
-            <div class="card">
-                <div class="video-box">
-                    <video src="assets/Procedural.mp4" autoplay loop muted playsinline></video>
-                </div>
-                <h3>Génération Procédurale (Unity 6)</h3>
-                <p>Utilisation de la génération procèdurale pour crée un jeu d'exploration.</p>
-                <a href="https://github.com/Erenros/Procedural" class="btn" target="_blank">Git du Projet</a>
-            </div>
-
-            <div class="card">
-                <div class="video-box">
-                    <video src="assets/3CFREEDODOPOURLESGTECHS.mp4" autoplay loop muted playsinline></video>
-                </div>
-                <h3>Système 3C (Unity 6)</h3>
-                <p>Optimisation des contrôles, de la caméra et des mouvements sur Unity avec remap des touches.</p>
-                <a href="https://github.com/Erenros/3C" class="btn" target="_blank">Git du Projet</a>
-            </div>
-            
-            <div class="card">
-                <div class="video-box">
-                    <video src="assets/UIUX.mp4" autoplay loop muted playsinline></video>
-                </div>
-                <h3>Interface UI/UX (Unity 6)</h3>
-                <p>Focus sur le retour utilisateur et l'interface utilisateur.</p>
-                <a href="https://github.com/Erenros/UIUXRevolutionDawn" class="btn" target="_blank">Git du Projet</a>
-            </div>
-
-            <div class="card">
-                <div class="video-box">
-                    <video src="assets/KindAberation.mp4" autoplay loop muted playsinline></video>
-                </div>
-                <h3>Shaders (Unity 6)</h3>
-                <p>Recherche visuelle et création d'effets post-process pour un bon rendu visuel.</p>
-                <a href="https://github.com/Erenros/Shader" class="btn" target="_blank">Git du Projet</a>
-            </div>
         </div>
 
-        <div class="section-separator">
-            <h2>C++ sans moteur</h2>
-        </div>
-
-        <div class="grid">
-            <div class="card card-archive">
-                <h3>Casse brique</h3>
-                <p>Casse brique avec des ajouts pour rendre le jeu plus fun.</p>
-                <a href="https://github.com/Erenros/CasseBrique" class="btn" target="_blank">Git du Projet</a>
-            </div>
-
-            <div class="card card-archive">
-                <h3>IA State Machine</h3>
-                <p>Création d'un jeu de rugby avec une state machine pour l'IA.</p>
-                <a href="https://github.com/Erenros/IA-Rugby" class="btn" target="_blank">Git du Projet</a>
-            </div>
-
-            <div class="card card-archive">
-                <h3>ShootEmUp</h3>
-                <p>Projet réalisé suite à la demande du musée de l'automobile Malartre.</p>
-                <a href="https://github.com/Erenros/ShoorEmUp" class="btn" target="_blank">Git du Projet</a>
-            </div>
-
-            <div class="card card-archive">
-                <h3>Multijoueur</h3>
-                <p>Multijoueur avec connexion Ip et sans bibliothèque semblable à SFML.</p>
-                <a href="https://github.com/Erenros/A2Multijoueur" class="btn" target="_blank">Git du Projet</a>
-            </div>
-
-            <div class="card">
-                <div class="video-box">
-                    <video src="assets/Moteur.mp4" autoplay loop muted playsinline></video>
-                </div>
-                <h3>Moteur DX12</h3>
-                <p>Création d'un moteur avec Direct X 12</p>
-                <a href="https://github.com/Erenros/Moteur" class="btn" target="_blank">Git du Projet</a>
-            </div>
-        </div>
-
-        <div class="section-separator">
+        <div id="skills" class="section-separator">
             <h2>Compétences Techniques</h2>
         </div>
 
         <div class="skills-grid">
-            <div class="skill-badge">
-                <i class="fa-solid fa-code"></i>
-                <span>C# / .NET</span>
-            </div>
-            <div class="skill-badge">
-                <i class="fa-solid fa-microchip"></i>
-                <span>C++</span>
-            </div>
-            <div class="skill-badge">
-                <i class="fa-brands fa-unity"></i>
-                <span>Unity 6</span>
-            </div>
-            <div class="skill-badge">
-                <i class="fa-solid fa-gamepad"></i>
-                <span>Unreal Engine 5</span>
-            </div>
-            <div class="skill-badge">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                <span>Shader / VFX</span>
-            </div>
-            <div class="skill-badge">
-                <i class="fa-solid fa-clapperboard"></i>
-                <span>UI / UX</span>
-            </div>
-            <div class="skill-badge">
-                <i class="fa-solid fa-chess"></i>
-                <span>Game Design</span>
-            </div>
-            <div class="skill-badge">
-                <i class="fa-brands fa-git-alt"></i>
-                <span>Git</span>
-            </div>
-            <div class="skill-badge skill-imagination">
-                <i class="fa-solid fa-brain"></i>
-                <span>Beaucoup d'imagination</span>
+            <div class="skill-badge"><i class="fa-solid fa-code"></i><span>C# / .NET</span></div>
+            <div class="skill-badge"><i class="fa-solid fa-microchip"></i><span>C++</span></div>
+            <div class="skill-badge"><i class="fa-brands fa-unity"></i><span>Unity 6</span></div>
+            <div class="skill-badge"><i class="fa-solid fa-gamepad"></i><span>Unreal Engine 5</span></div>
+            <div class="skill-badge"><i class="fa-solid fa-wand-magic-sparkles"></i><span>Shader / VFX</span></div>
+            <div class="skill-badge"><i class="fa-brands fa-git-alt"></i><span>Git</span></div>
+        </div>
+
+        <div id="contact" class="contact-container">
+            <h2>Me Contacter</h2>
+            <div class="contact-links">
+                <a href="mailto:err.khac@gmail.com" class="contact-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>Email</span>
+                </a>
+                <a href="https://www.linkedin.com/in/elias-rousseau-97521533a/" target="_blank" class="contact-item">
+                    <i class="fa-brands fa-linkedin"></i>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/Erenros" target="_blank" class="contact-item">
+                    <i class="fa-brands fa-github"></i>
+                    <span>GitHub</span>
+                </a>
             </div>
         </div>
     </div>
