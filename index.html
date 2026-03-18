@@ -31,7 +31,7 @@
                 linear-gradient(180deg, #050510 0%, #0a0a20 100%);
         }
 
-        /* --- GLITCH DES OBJETS (CONSERVÉ) --- */
+        /* --- ANIMATIONS GLITCH ALÉATOIRES (OBJETS) --- */
         @keyframes glitch-spasm {
             0%, 90%, 100% { transform: translate(0,0) scale(1); filter: hue-rotate(0deg); opacity: 0.5; }
             91% { transform: translate(-20px, 10px) scale(1.2); filter: hue-rotate(90deg); opacity: 1; }
@@ -40,10 +40,12 @@
             97% { transform: translate(15px, 15px) scale(1.1); filter: hue-rotate(270deg); }
         }
 
-        /* --- GLITCH INTERACTIF (ADOUCI POUR LE TEXTE) --- */
-        @keyframes hover-glitch-soft {
+        /* --- ANIMATION GLITCH INTERACTIF (HOVER) --- */
+        @keyframes hover-glitch-action {
             0% { transform: translate(0); text-shadow: 2px 2px var(--c-red), -2px -2px var(--c-neon); }
-            50% { transform: translate(-2px, 1px); text-shadow: -2px 2px var(--c-pink), 2px -2px var(--c-purple); }
+            25% { transform: translate(-3px, 2px); clip-path: inset(10% 0 40% 0); }
+            50% { transform: translate(3px, -2px); text-shadow: -2px 2px var(--c-pink), 2px -2px var(--c-purple); }
+            75% { transform: translate(-1px, -1px); clip-path: inset(50% 0 10% 0); }
             100% { transform: translate(0); }
         }
 
@@ -55,6 +57,7 @@
             filter: drop-shadow(0 0 10px rgba(0,242,255,0.3));
         }
 
+        /* On combine le flottement doux et le spasme aléatoire avec des durées différentes */
         .deco-palm { top: 15%; left: 5%; font-size: 80px; color: #00ff6a; animation: float-chaos 8s infinite ease-in-out, glitch-spasm 12s infinite; }
         .deco-eye { top: 55%; right: 8%; font-size: 60px; color: #fff; animation: float-chaos 6s infinite reverse, glitch-spasm 7s infinite; }
         .deco-shape { bottom: 15%; left: 12%; font-size: 45px; color: var(--c-purple); animation: rotate-glitch 10s infinite linear, glitch-spasm 15s infinite; }
@@ -94,10 +97,10 @@
         nav a:hover { 
             opacity: 1; 
             color: var(--c-neon); 
-            animation: hover-glitch-soft 0.3s infinite;
+            animation: hover-glitch-action 0.3s infinite;
         }
 
-        /* --- HEADER (PASSÉ À 70VH) --- */
+        /* --- HEADER --- */
         header {
             height: 70vh;
             display: flex;
@@ -109,21 +112,16 @@
 
         h1 {
             font-family: 'Bungee', cursive;
-            font-size: clamp(3rem, 12vw, 7rem); /* Taille légèrement réduite pour éviter le zoom excessif */
+            font-size: clamp(3.5rem, 15vw, 9rem);
             margin: 0;
             color: white;
             text-shadow: 5px 5px 0px var(--c-purple);
-            animation: main-float 4s ease-in-out infinite;
-        }
-
-        @keyframes main-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            animation: float 4s ease-in-out infinite;
         }
 
         .subtitle {
-            font-size: 1.1rem;
-            letter-spacing: 5px;
+            font-size: 1.2rem;
+            letter-spacing: 6px;
             text-transform: uppercase;
             background: linear-gradient(90deg, var(--c-neon), var(--c-pink));
             -webkit-background-clip: text;
@@ -131,47 +129,42 @@
             font-weight: bold;
         }
 
-        /* --- CONTENU --- */
+        /* --- CONTENU & CARTES --- */
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px 100px 20px;
         }
 
         h2 {
             font-family: 'Cinzel', serif;
-            font-size: 2rem;
+            font-size: 2.2rem;
             border-left: 5px solid var(--c-neon);
             padding-left: 15px;
-            margin: 60px 0 30px 0;
+            margin: 80px 0 40px 0;
         }
 
         .card {
             background: var(--glass);
             border: 1px solid var(--border);
             padding: 25px;
-            transition: 0.3s ease;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
         }
 
         .card:hover {
-            border-color: var(--c-neon);
-            background: rgba(255, 255, 255, 0.07);
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
+            border-color: var(--c-pink);
+            background: rgba(255, 0, 127, 0.05);
+            animation: hover-glitch-action 0.4s infinite;
+            cursor: pointer;
         }
 
         .video-box {
-            width: 100%; height: 200px;
+            width: 100%; height: 180px;
             background: #000; margin-bottom: 15px;
             border: 1px solid #222;
         }
-        .video-box video { width: 100%; height: 100%; object-fit: cover; }
 
         .btn {
             display: block;
@@ -184,19 +177,18 @@
             font-weight: bold;
             text-transform: uppercase;
             font-size: 0.8rem;
-            transition: 0.3s;
         }
 
         .btn:hover {
             background: var(--c-neon);
             color: black;
-            animation: hover-glitch-soft 0.3s infinite;
+            animation: hover-glitch-action 0.2s infinite;
         }
 
         /* --- SKILLS --- */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px;
         }
 
@@ -205,16 +197,15 @@
             border: 1px solid var(--border);
             padding: 20px;
             text-align: center;
-            transition: 0.3s;
         }
 
         .skill-badge:hover {
+            animation: hover-glitch-action 0.3s infinite;
             border-color: var(--c-neon);
             color: var(--c-neon);
-            transform: translateY(-5px);
         }
 
-        .skill-badge i { font-size: 1.8rem; margin-bottom: 10px; display: block; }
+        .skill-badge i { font-size: 2rem; margin-bottom: 10px; display: block; }
 
         .imagination-badge {
             background: white !important;
@@ -238,12 +229,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: 0.3s;
         }
 
         .contact-link:hover {
-            animation: hover-glitch-soft 0.3s infinite;
+            animation: hover-glitch-action 0.3s infinite;
             color: var(--c-pink);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
     </style>
@@ -274,7 +269,7 @@
             <div class="card">
                 Passionné par les jeux vidéo et la création, j'apprends à devenir développeur. 
                 Aujourd'hui étudiant en 3e année, je me spécialise dans la programmation de jeux vidéo 
-                pour offrir des expériences fluides, performantes et surtout mémorables.
+                pour offrir des expériences fluides, performantes et surtout mémorables pour les joueurs.
             </div>
         </section>
 
@@ -295,13 +290,14 @@
             </div>
         </div>
 
-        <h2 id="competences">Compétences</h2>
+        <h2 id="competences">Compétences Techniques</h2>
         <div class="skills-grid">
             <div class="skill-badge"><i class="fa-solid fa-code"></i><span>C# / .NET</span></div>
             <div class="skill-badge"><i class="fa-solid fa-microchip"></i><span>C++</span></div>
             <div class="skill-badge"><i class="fa-brands fa-unity"></i><span>Unity 6</span></div>
             <div class="skill-badge"><i class="fa-solid fa-gamepad"></i><span>Game Design</span></div>
             <div class="skill-badge"><i class="fa-solid fa-object-group"></i><span>UI / UX</span></div>
+            <div class="skill-badge"><i class="fa-brands fa-git-alt"></i><span>Git</span></div>
             <div class="skill-badge imagination-badge">
                 <i class="fa-solid fa-brain"></i>
                 <span>Imagination ++</span>
@@ -319,7 +315,7 @@
     </div>
 
     <footer style="text-align: center; padding: 60px; opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px;">
-        ERENROS © 2026 - CORE_STABLE_V2
+        ERENROS © 2026 - ERROR: SYSTEM_STABLE_FALSE
     </footer>
 
 </body>
