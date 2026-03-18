@@ -74,6 +74,7 @@
             98% { filter: drop-shadow(0 0 10px var(--c-purple)) hue-rotate(180deg); margin-left: -10px; clip-path: inset(30% 0 30% 0); opacity: 0.9; }
         }
 
+        /* Glitch RGB 3D pour les skills normaux */
         @keyframes mild-glitch-fx {
             0%, 100% { transform: translate(0, 0); text-shadow: none; }
             25% { transform: translate(-2px, 1px); text-shadow: 2px 0 var(--c-pink); }
@@ -81,20 +82,23 @@
             75% { transform: translate(-1px, 2px); text-shadow: 2px 0 var(--c-purple); }
         }
 
-        @keyframes mild-glitch-contact {
-            0%, 100% { transform: translateY(-10px) translate(0, 0); }
-            25% { transform: translateY(-10px) translate(-3px, 3px); color: var(--c-pink); text-shadow: 2px 0 var(--c-neon); }
-            50% { transform: translateY(-10px) translate(3px, -3px); color: var(--c-neon); text-shadow: -2px 0 var(--c-purple); }
-            75% { transform: translateY(-10px) translate(-3px, -3px); color: white; text-shadow: 2px 0 var(--c-pink); }
+        /* Nouveau Glitch "Déchirure holographique" pour les contacts */
+        @keyframes contact-glitch {
+            0%, 100% { transform: translateY(-10px); clip-path: inset(0 0 0 0); opacity: 1; color: var(--c-neon); }
+            20% { transform: translateY(-10px) translateX(-4px); clip-path: inset(20% 0 70% 0); color: var(--c-pink); }
+            40% { transform: translateY(-10px) translateX(4px); clip-path: inset(60% 0 10% 0); color: var(--c-neon); }
+            60% { transform: translateY(-10px); clip-path: inset(0 0 0 0); opacity: 0.4; }
+            80% { transform: translateY(-10px) translateX(-2px); clip-path: inset(30% 0 40% 0); color: var(--c-purple); }
         }
 
+        /* Glitch chaotique adouci pour l'imagination (moins de déformation physique) */
         @keyframes chaotic-glitch {
             0%, 100% { transform: translate(0, 0) scale(1) skew(0deg); clip-path: inset(0 0 0 0); }
-            10% { transform: translate(-15px, 10px) scale(1.1) skew(20deg); background: var(--c-red) !important; color: white !important; box-shadow: -10px 10px 0 var(--c-neon); clip-path: inset(10% 0 20% 0); }
-            30% { transform: translate(15px, -15px) scale(0.9) skew(-30deg); background: var(--c-neon) !important; color: black !important; box-shadow: 10px -10px 0 var(--c-pink); clip-path: inset(40% 0 10% 0); }
-            50% { transform: translate(-10px, -20px) scale(1.3) skew(40deg); background: var(--c-purple) !important; color: lime !important; box-shadow: -10px -10px 0 var(--c-red); clip-path: inset(10% 0 50% 0); }
-            70% { transform: translate(20px, 15px) scale(0.9) skew(-10deg); background: black !important; color: var(--c-pink) !important; box-shadow: 10px 10px 0 var(--c-neon); clip-path: inset(80% 0 5% 0); }
-            90% { transform: translate(-5px, 5px) scale(1.4) skew(15deg); background: white !important; color: black !important; box-shadow: -5px 5px 0 var(--c-purple); filter: invert(1); clip-path: inset(30% 0 30% 0); }
+            10% { transform: translate(-5px, 3px) scale(1.05) skew(10deg); background: var(--c-red) !important; color: white !important; box-shadow: -5px 5px 0 var(--c-neon); clip-path: inset(10% 0 20% 0); }
+            30% { transform: translate(5px, -5px) scale(0.95) skew(-15deg); background: var(--c-neon) !important; color: black !important; box-shadow: 5px -5px 0 var(--c-pink); clip-path: inset(40% 0 10% 0); }
+            50% { transform: translate(-3px, -6px) scale(1.1) skew(15deg); background: var(--c-purple) !important; color: lime !important; box-shadow: -5px -5px 0 var(--c-red); clip-path: inset(10% 0 50% 0); }
+            70% { transform: translate(6px, 4px) scale(0.95) skew(-5deg); background: black !important; color: var(--c-pink) !important; box-shadow: 5px 5px 0 var(--c-neon); clip-path: inset(80% 0 5% 0); }
+            90% { transform: translate(-2px, 2px) scale(1.1) skew(5deg); background: white !important; color: black !important; box-shadow: -3px 3px 0 var(--c-purple); filter: invert(0.8); clip-path: inset(30% 0 30% 0); }
         }
 
         /* --- NAVIGATION --- */
@@ -255,9 +259,9 @@
             border: none;
         }
         
-        /* Glitch ultra chaotique pour l'imagination */
+        /* Glitch chaotique (rééquilibré) pour l'imagination */
         .skill-badge.imagination-badge:hover {
-            animation: chaotic-glitch 0.15s infinite;
+            animation: chaotic-glitch 0.2s infinite;
             cursor: crosshair;
         }
 
@@ -280,9 +284,9 @@
             align-items: center;
         }
         
-        /* Glitch léger pour les contacts en gardant le translate Y */
+        /* Glitch spécifique pour les contacts (Déchirure) */
         .contact-link:hover { 
-            animation: mild-glitch-contact 0.2s infinite; 
+            animation: contact-glitch 0.25s infinite; 
         }
 
     </style>
