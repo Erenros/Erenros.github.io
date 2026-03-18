@@ -42,13 +42,13 @@
         }
 
         /* Palmier cliché */
-        .deco-palm { top: 10%; left: 5%; font-size: 80px; animation: float-chaos 8s infinite ease-in-out; color: #00ff6a; }
+        .deco-palm { top: 10%; left: 5%; font-size: 80px; animation: float-chaos 8s infinite ease-in-out, random-glitch-obj 4s infinite linear; color: #00ff6a; }
         /* Oeil flottant */
-        .deco-eye { top: 60%; right: 10%; font-size: 50px; animation: float-chaos 6s infinite reverse; color: #fff; }
+        .deco-eye { top: 60%; right: 10%; font-size: 50px; animation: float-chaos 6s infinite reverse, random-glitch-obj 5.3s infinite linear; color: #fff; }
         /* Forme géométrique */
-        .deco-shape { bottom: 20%; left: 15%; font-size: 40px; animation: rotate-glitch 10s infinite linear; color: var(--c-purple); }
+        .deco-shape { bottom: 20%; left: 15%; font-size: 40px; animation: rotate-glitch 10s infinite linear, random-glitch-obj 3.7s infinite linear; color: var(--c-purple); }
         /* Oiseau/Birdy */
-        .deco-bird { top: 40%; left: 50%; font-size: 30px; animation: fly 12s infinite linear; color: var(--c-neon); }
+        .deco-bird { top: 40%; left: 50%; font-size: 30px; animation: fly 12s infinite linear, random-glitch-obj 6.1s infinite linear; color: var(--c-neon); }
 
         @keyframes float-chaos {
             0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
@@ -64,6 +64,37 @@
         @keyframes fly {
             0% { transform: translate(-100vw, 0) rotate(10deg); }
             100% { transform: translate(100vw, -50px) rotate(-10deg); }
+        }
+
+        /* --- NOUVEAUX KEYFRAMES GLITCH --- */
+        @keyframes random-glitch-obj {
+            0%, 92%, 100% { filter: drop-shadow(0 0 10px rgba(0,242,255,0.3)) hue-rotate(0deg); margin: 0; clip-path: inset(0 0 0 0); opacity: 0.5; }
+            93% { filter: drop-shadow(-10px 10px 10px var(--c-pink)) hue-rotate(90deg); margin-left: 15px; clip-path: inset(10% 0 10% 0); opacity: 0.8; }
+            96% { filter: drop-shadow(10px -10px 10px var(--c-red)) hue-rotate(-90deg); margin-top: -15px; clip-path: inset(0 20% 0 20%); opacity: 0.2; }
+            98% { filter: drop-shadow(0 0 10px var(--c-purple)) hue-rotate(180deg); margin-left: -10px; clip-path: inset(30% 0 30% 0); opacity: 0.9; }
+        }
+
+        @keyframes mild-glitch-fx {
+            0%, 100% { transform: translate(0, 0); text-shadow: none; }
+            25% { transform: translate(-2px, 1px); text-shadow: 2px 0 var(--c-pink); }
+            50% { transform: translate(2px, -1px); text-shadow: -2px 0 var(--c-neon); }
+            75% { transform: translate(-1px, 2px); text-shadow: 2px 0 var(--c-purple); }
+        }
+
+        @keyframes mild-glitch-contact {
+            0%, 100% { transform: translateY(-10px) translate(0, 0); }
+            25% { transform: translateY(-10px) translate(-3px, 3px); color: var(--c-pink); text-shadow: 2px 0 var(--c-neon); }
+            50% { transform: translateY(-10px) translate(3px, -3px); color: var(--c-neon); text-shadow: -2px 0 var(--c-purple); }
+            75% { transform: translateY(-10px) translate(-3px, -3px); color: white; text-shadow: 2px 0 var(--c-pink); }
+        }
+
+        @keyframes chaotic-glitch {
+            0%, 100% { transform: translate(0, 0) scale(1) skew(0deg); clip-path: inset(0 0 0 0); }
+            10% { transform: translate(-15px, 10px) scale(1.1) skew(20deg); background: var(--c-red) !important; color: white !important; box-shadow: -10px 10px 0 var(--c-neon); clip-path: inset(10% 0 20% 0); }
+            30% { transform: translate(15px, -15px) scale(0.9) skew(-30deg); background: var(--c-neon) !important; color: black !important; box-shadow: 10px -10px 0 var(--c-pink); clip-path: inset(40% 0 10% 0); }
+            50% { transform: translate(-10px, -20px) scale(1.3) skew(40deg); background: var(--c-purple) !important; color: lime !important; box-shadow: -10px -10px 0 var(--c-red); clip-path: inset(10% 0 50% 0); }
+            70% { transform: translate(20px, 15px) scale(0.9) skew(-10deg); background: black !important; color: var(--c-pink) !important; box-shadow: 10px 10px 0 var(--c-neon); clip-path: inset(80% 0 5% 0); }
+            90% { transform: translate(-5px, 5px) scale(1.4) skew(15deg); background: white !important; color: black !important; box-shadow: -5px 5px 0 var(--c-purple); filter: invert(1); clip-path: inset(30% 0 30% 0); }
         }
 
         /* --- NAVIGATION --- */
@@ -207,15 +238,27 @@
             text-align: center;
             transition: 0.3s;
         }
-        .skill-badge:hover { border-color: var(--c-pink); color: var(--c-pink); }
+        
+        /* Glitch léger pour les skills normaux */
+        .skill-badge:not(.imagination-badge):hover { 
+            border-color: var(--c-pink); 
+            color: var(--c-pink); 
+            animation: mild-glitch-fx 0.2s infinite;
+        }
 
-        .skill-badge i { font-size: 2rem; color: var(--c-neon); margin-bottom: 10px; display: block; }
+        .skill-badge i { font-size: 2rem; color: var(--c-neon); margin-bottom: 10px; display: block; transition: 0.3s; }
 
         .imagination-badge {
             background: white !important;
             color: black !important;
             font-family: 'Bungee';
             border: none;
+        }
+        
+        /* Glitch ultra chaotique pour l'imagination */
+        .skill-badge.imagination-badge:hover {
+            animation: chaotic-glitch 0.15s infinite;
+            cursor: crosshair;
         }
 
         /* --- CONTACT --- */
@@ -236,7 +279,11 @@
             flex-direction: column;
             align-items: center;
         }
-        .contact-link:hover { color: var(--c-neon); transform: translateY(-10px); }
+        
+        /* Glitch léger pour les contacts en gardant le translate Y */
+        .contact-link:hover { 
+            animation: mild-glitch-contact 0.2s infinite; 
+        }
 
     </style>
 </head>
@@ -273,7 +320,7 @@
             </div>
         </section>
 
-        <<h2 id="projets">Projets Unity</h2>
+        <h2 id="projets">Projets Unity</h2>
         <div class="grid">
             <div class="card">
                 <div class="video-box"><video src="assets/ENARIA_OuvertureOnglets.mp4" autoplay loop muted playsinline></video></div>
