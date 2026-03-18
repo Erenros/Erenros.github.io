@@ -162,6 +162,60 @@
             box-shadow: 0 0 20px var(--neon-primary);
         }
 
+        /* --- NOUVELLES SECTIONS --- */
+
+        .about-box {
+            background: var(--glass);
+            border: 1px border var(--border);
+            padding: 40px;
+            border-radius: 15px;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-bottom: 80px;
+            border-left: 5px solid var(--neon-primary);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .skill-bar-bg {
+            background: rgba(255,255,255,0.1);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-secondary), var(--neon-primary));
+            box-shadow: 0 0 10px var(--neon-primary);
+            border-radius: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            opacity: 0.5;
+            font-size: 0.9rem;
+        }
+
         @keyframes pulse-aura {
             0%, 100% { text-shadow: 0 0 20px rgba(0, 242, 255, 0.2); }
             50% { text-shadow: 0 0 50px rgba(188, 19, 254, 0.6), 0 0 10px white; }
@@ -183,6 +237,15 @@
     </header>
 
     <div class="container">
+        <div class="about-box">
+            <h2>À Propos</h2>
+            <p>
+                Passionné par le développement de jeux vidéo et la programmation système, je me spécialise dans la création d'expériences interactives immersives. 
+                De la manipulation de moteurs comme Unity 6 à la création de moteurs "from scratch" en DirectX 12, j'aime relever des défis techniques 
+                pour repousser les limites du rendu et de la performance.
+            </p>
+        </div>
+
         <h2>Projets Réalisés</h2>
         
         <div class="grid">
@@ -257,7 +320,7 @@
         </div>
 
         <div class="section-separator">
-            <h2>Début programmation dans le Jeu Vidéo (C++ sans moteur)</h2>
+            <h2>C++ sans moteur</h2>
         </div>
 
         <div class="grid">
@@ -294,7 +357,57 @@
                 <a href="https://github.com/Erenros/Moteur" class="btn" target="_blank">Git du Projet</a>
             </div>
         </div>
+
+        <div class="section-separator">
+            <h2>Compétences Techniques</h2>
+        </div>
+
+        <div class="skills-container">
+            <div class="skill-item">
+                <div class="skill-info">
+                    <span>C# / .NET</span>
+                    <span>90%</span>
+                </div>
+                <div class="skill-bar-bg">
+                    <div class="skill-bar-fill" style="width: 90%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-info">
+                    <span>Unity 6</span>
+                    <span>85%</span>
+                </div>
+                <div class="skill-bar-bg">
+                    <div class="skill-bar-fill" style="width: 85%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-info">
+                    <span>C++</span>
+                    <span>75%</span>
+                </div>
+                <div class="skill-bar-bg">
+                    <div class="skill-bar-fill" style="width: 75%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-item">
+                <div class="skill-info">
+                    <span>DirectX 12 / HLSL</span>
+                    <span>60%</span>
+                </div>
+                <div class="skill-bar-bg">
+                    <div class="skill-bar-fill" style="width: 60%;"></div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <footer>
+        <p>&copy; 2026 ERENROS - Portfolio de Développement</p>
+    </footer>
 
 </body>
 </html>
