@@ -9,47 +9,32 @@
     
     <style>
         :root {
-            --bg-color: #05010a; /* Plus sombre pour faire ressortir les néons */
+            --bg-color: #030005; 
             --c1: #39ff14; /* Vert Sonic */
             --c2: #ff007f; /* Rose Flash */
             --c3: #00f2ff; /* Cyan */
             --c4: #ffee00; /* Jaune */
-            --glass: rgba(0, 0, 0, 0.7);
-            --round: 0px; /* Moins de rondeur pour un look plus agressif/glitch */
         }
 
-        /* --- FOND CHAOTIQUE & TEXTURE NOISE --- */
         body {
             margin: 0;
             background-color: var(--bg-color);
             color: white;
             font-family: 'Fredoka', sans-serif;
             overflow-x: hidden;
-            position: relative;
+            /* Zoom arrière global simulé par un padding plus large */
+            padding: 0 5%; 
         }
 
-        /* Overlay de bruit (Static) */
+        /* Overlay de grain très fin (optionnel, mais garde le côté texture sans les traits) */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://grainy-gradients.vercel.app/noise.svg');
-            opacity: 0.15;
+            opacity: 0.08;
             pointer-events: none;
             z-index: 9999;
-            contrast: 150%;
-        }
-
-        /* Scanlines style CRT */
-        body::after {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 4px, 3px 100%;
-            pointer-events: none;
-            z-index: 10000;
         }
 
         .chaos-bg {
@@ -57,163 +42,193 @@
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             background: 
-                radial-gradient(at 0% 0%, rgba(57, 255, 20, 0.3) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(255, 0, 127, 0.3) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(0, 242, 255, 0.3) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, rgba(255, 238, 0, 0.3) 0px, transparent 50%);
-            animation: bgShift 5s infinite alternate;
+                radial-gradient(at 10% 10%, rgba(57, 255, 20, 0.15) 0px, transparent 40%),
+                radial-gradient(at 90% 10%, rgba(255, 0, 127, 0.15) 0px, transparent 40%),
+                radial-gradient(at 50% 90%, rgba(0, 242, 255, 0.15) 0px, transparent 50%);
+            animation: bgShift 8s infinite alternate ease-in-out;
         }
 
         @keyframes bgShift {
-            0% { filter: hue-rotate(0deg) brightness(1); transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { filter: hue-rotate(90deg) brightness(1.2); transform: scale(1); }
+            0% { filter: hue-rotate(0deg); transform: scale(1); }
+            100% { filter: hue-rotate(45deg); transform: scale(1.05); }
         }
 
-        /* --- TITRE GLITCH (TRINITY STYLE) --- */
-        .glitch-wrapper {
+        /* --- GLITCH LOGIC --- */
+        .glitch {
             position: relative;
             display: inline-block;
+        }
+
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch::before {
+            color: var(--c3);
+            z-index: -1;
+            animation: glitchMove 0.3s infinite;
+        }
+
+        .glitch::after {
+            color: var(--c2);
+            z-index: -2;
+            animation: glitchMove 0.3s infinite reverse;
+        }
+
+        @keyframes glitchMove {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        /* --- HEADER --- */
+        header {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         h1 {
             font-family: 'Bungee', cursive;
-            font-size: clamp(3.5rem, 12vw, 8rem);
-            position: relative;
-            color: white;
+            font-size: clamp(3rem, 10vw, 6rem);
+            margin: 0;
             text-transform: uppercase;
-            animation: mainShake 0.1s infinite;
         }
 
-        /* Effet de dédoublement RGB */
-        h1::before, h1::after {
-            content: "ERENROS";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: transparent;
-        }
-
-        h1::before {
-            left: 3px;
-            text-shadow: -3px 0 var(--c2);
-            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-            animation: glitchAnim 0.3s infinite;
-        }
-
-        h1::after {
-            left: -3px;
-            text-shadow: 3px 0 var(--c3);
-            clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-            animation: glitchAnim 0.2s infinite reverse;
-        }
-
-        @keyframes glitchAnim {
-            0% { transform: translate(0); clip-path: inset(10% 0 30% 0); }
-            20% { transform: translate(-5px, 5px); }
-            40% { transform: translate(-5px, -5px); clip-path: inset(40% 0 10% 0); }
-            60% { transform: translate(5px, 5px); }
-            80% { transform: translate(5px, -5px); clip-path: inset(80% 0 5% 0); }
-            100% { transform: translate(0); }
-        }
-
-        @keyframes mainShake {
-            0% { transform: translate(1px, 1px); }
-            25% { transform: translate(-1px, -1px); }
-            50% { transform: translate(1px, -1px); }
-            75% { transform: translate(-1px, 1px); }
-            100% { transform: translate(0); }
-        }
-
-        /* --- NAVIGATION --- */
+        /* --- NAV --- */
         nav {
             position: fixed;
-            top: 15px; left: 50%;
+            top: 20px; left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            background: rgba(255, 0, 127, 0.2);
-            backdrop-filter: blur(10px);
-            z-index: 11000;
-            padding: 10px;
-            border: 2px solid var(--c1);
-            box-shadow: 5px 5px 0px var(--c3);
+            z-index: 10000;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            display: flex;
+            gap: 15px;
         }
 
         nav a {
-            color: white;
+            color: #fff;
             text-decoration: none;
-            margin: 0 10px;
-            font-weight: 900;
-            font-size: 0.8rem;
-            text-shadow: 2px 2px 0px black;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: 0.2s;
         }
 
-        /* --- CARTES & CONTENU --- */
+        nav a:hover { color: var(--c1); transform: skewX(-10deg); }
+
+        /* --- CONTAINER & CARDS --- */
         .container {
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 100px 20px;
+            padding-bottom: 100px;
         }
 
         .card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 3px solid white;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            transition: all 0.1s step-end; /* Transition sèche pour effet glitch */
             position: relative;
-            transition: 0.1s;
-            margin-bottom: 20px;
         }
 
         .card:hover {
-            border-color: var(--c1);
-            transform: scale(1.02) rotate(1deg);
-            box-shadow: 10px 10px 0px var(--c2), -10px -10px 0px var(--c3);
+            border-color: var(--c3);
+            background: rgba(255, 255, 255, 0.05);
+            /* Petit décalage brutal au lieu du gros RGB */
+            transform: translate(2px, -2px);
+            box-shadow: -4px 4px 0px var(--c2);
         }
 
         .video-box {
             width: 100%;
-            background: #111;
-            border: 2px solid #333;
-            filter: contrast(120%) brightness(1.1);
+            aspect-ratio: 16/9;
+            background: #000;
+            margin-bottom: 15px;
+            overflow: hidden;
         }
 
         h2 {
             font-family: 'Bungee';
-            background: var(--c2);
-            display: inline-block;
-            padding: 5px 20px;
-            transform: skew(-10deg);
-            margin-bottom: 30px;
-        }
-
-        .btn {
-            display: block;
-            text-align: center;
-            background: var(--c3);
-            color: black;
-            padding: 10px;
-            font-weight: 900;
-            text-decoration: none;
-            border: 3px solid black;
-            box-shadow: 4px 4px 0px white;
-        }
-
-        .btn:hover {
-            background: var(--c4);
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0px white;
+            font-size: 1.5rem;
+            color: var(--c1);
+            margin-top: 50px;
+            border-left: 5px solid var(--c1);
+            padding-left: 15px;
         }
 
         /* --- SKILLS --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-badge {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        /* Le badge Imagination qui utilise le Glitch du titre */
         .skill-imagination {
-            animation: blink 0.1s infinite;
+            border-color: var(--c2) !important;
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
 
-        @keyframes blink {
-            0% { opacity: 1; filter: invert(0); }
-            50% { opacity: 0.8; filter: invert(1); }
-            100% { opacity: 1; filter: invert(0); }
+        /* Effet de scanline local lent pour le badge */
+        .skill-imagination::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--c2);
+            opacity: 0.5;
+            animation: scanlineLocal 2s linear infinite;
         }
 
+        @keyframes scanlineLocal {
+            0% { top: 0%; } 100% { top: 100%; }
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: var(--c3);
+            color: black;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: white;
+            transform: translateX(5px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 0.7rem;
+            opacity: 0.4;
+            letter-spacing: 2px;
+        }
     </style>
 </head>
 <body>
@@ -221,63 +236,66 @@
     <div class="chaos-bg"></div>
 
     <nav>
-        <a href="#propos">INFO</a>
-        <a href="#projets">GAMES</a>
-        <a href="#cpp">C++</a>
+        <a href="#propos">PROPOS</a>
+        <a href="#projets">PROJETS</a>
         <a href="#competences">SKILLS</a>
         <a href="#contact">CONTACT</a>
     </nav>
 
-    <header style="height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-        <div class="glitch-wrapper">
-            <h1 data-text="ERENROS">ERENROS</h1>
+    <header>
+        <div class="glitch" data-text="ERENROS">
+            <h1>ERENROS</h1>
         </div>
-        <div style="background: black; color: var(--c1); padding: 5px 20px; font-weight: 900; border: 2px solid var(--c1); margin-top: 10px;">
-            > ERROR: TRINITY_ENCORE_SYSTEM_LOADED
-        </div>
+        <p style="color: var(--c1); font-weight: 700; font-size: 0.9rem; margin-top: 20px; letter-spacing: 3px;">
+            // SYSTEM STATUS: UNSTABLE //
+        </p>
     </header>
 
     <div class="container">
+        
         <div id="propos" class="card">
-            <h2>DATA_STREAM: À Propos</h2>
-            <p>
-                Apprenti développeur spécialisé dans le <strong>CHAOS VISUEL</strong> et la performance brute. 
-                Étudiant en 3e année de JV. Mon code ne compile pas, il survit.
+            <h3 style="margin-top:0; color:var(--c2)">[FILE_INFO]</h3>
+            <p style="font-size: 0.95rem; line-height: 1.6;">
+                Apprenti développeur en 3e année de Jeux Vidéo. 
+                Focus sur la programmation système et les <strong>expériences visuelles saturées</strong>. 
+                Inspiré par la DA "Trinity Encore", je cherche à repousser les limites du CSS et du Shader Code.
             </p>
         </div>
 
-        <h2 id="projets">PROJECT_FILES</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+        <h2 id="projets">PROJECTS_LOG</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
             <div class="card">
                 <div class="video-box">
-                    <video src="assets/ENARIA_OuvertureOnglets.mp4" autoplay loop muted playsinline style="width:100%"></video>
+                    <video src="assets/ENARIA_OuvertureOnglets.mp4" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>
                 </div>
-                <h3>ENARIA</h3>
-                <p>Outils UI & Systèmes instables.</p>
-                <a href="#" class="btn">ACCESS_GIT</a>
+                <h4 style="margin:0; color:var(--c3)">ENARIA</h4>
+                <p style="font-size:0.85rem; opacity:0.8">Développement d'outils et UI dynamiques.</p>
+                <a href="#" class="btn">GIT_LINK</a>
             </div>
 
             <div class="card">
                 <div class="video-box">
-                    <video src="assets/KindAberation.mp4" autoplay loop muted playsinline style="width:100%"></video>
+                    <video src="assets/KindAberation.mp4" autoplay loop muted playsinline style="width:100%; height:100%; object-fit:cover;"></video>
                 </div>
-                <h3>SHADERS_VFX</h3>
-                <p>Post-process de destruction oculaire.</p>
-                <a href="#" class="btn">ACCESS_GIT</a>
+                <h4 style="margin:0; color:var(--c3)">SHADER_VFX</h4>
+                <p style="font-size:0.85rem; opacity:0.8">Post-process glitch et distorsion.</p>
+                <a href="#" class="btn">GIT_LINK</a>
             </div>
         </div>
 
-        <h2 id="competences">CORE_SKILLS</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
-            <div class="card" style="text-align: center;">C#</div>
-            <div class="card" style="text-align: center;">C++</div>
-            <div class="card" style="text-align: center;">UNITY 6</div>
-            <div class="card skill-imagination" style="text-align: center; background: white; color: black;">ULTRA_IMAGINATION</div>
+        <h2 id="competences">SKILLS_DATABASE</h2>
+        <div class="skills-grid">
+            <div class="skill-badge">C# / UNITY</div>
+            <div class="skill-badge">C++ / DX12</div>
+            <div class="skill-badge">HLSL / VFX</div>
+            <div class="skill-badge skill-imagination glitch" data-text="MAX IMAGINATION">
+                MAX IMAGINATION
+            </div>
         </div>
     </div>
 
-    <footer style="text-align: center; padding: 50px; font-family: 'Bungee'; color: var(--c2);">
-        -- SYSTEM STATUS: CRITICAL // ERENROS 2026 --
+    <footer>
+        ERENROS // 2026 // STAY CHAOTIC
     </footer>
 
 </body>
