@@ -12,6 +12,7 @@
             --bg-color: #050510;
             --c-neon: #00f2ff;
             --c-pink: #ff007f;
+            --c-red: #ff003c;
             --c-purple: #6a00ff;
             --glass: rgba(255, 255, 255, 0.05);
             --border: rgba(255, 255, 255, 0.1);
@@ -30,20 +31,20 @@
                 linear-gradient(180deg, #050510 0%, #0a0a20 100%);
         }
 
-        /* --- GLITCH ALÉATOIRE (OBJETS DÉCO UNIQUEMENT) --- */
+        /* --- GLITCH DES OBJETS (CONSERVÉ) --- */
         @keyframes glitch-spasm {
             0%, 90%, 100% { transform: translate(0,0) scale(1); filter: hue-rotate(0deg); opacity: 0.5; }
             91% { transform: translate(-20px, 10px) scale(1.2); filter: hue-rotate(90deg); opacity: 1; }
-            93% { transform: translate(20px, -5px) scale(0.8) skew(20deg); }
-            95% { transform: translate(-10px, -20px) scale(1.4); clip-path: inset(10% 0 40% 0); }
+            93% { transform: translate(20px, -5px) scale(0.8) skew(20deg); filter: hue-rotate(180deg); }
+            95% { transform: translate(-10px, -20px) scale(1.5); clip-path: inset(20% 0 50% 0); }
             97% { transform: translate(15px, 15px) scale(1.1); filter: hue-rotate(270deg); }
         }
 
-        /* --- GLITCH DOUX POUR L'INTERACTIF (HOVER) --- */
-        @keyframes soft-glitch {
-            0% { text-shadow: 2px 0 var(--c-pink), -2px 0 var(--c-neon); transform: translateX(0); }
-            50% { text-shadow: -1px 0 var(--c-pink), 1px 0 var(--c-neon); transform: translateX(1px); }
-            100% { text-shadow: 2px 0 var(--c-pink), -2px 0 var(--c-neon); transform: translateX(0); }
+        /* --- GLITCH INTERACTIF (ADOUCI POUR LE TEXTE) --- */
+        @keyframes hover-glitch-soft {
+            0% { transform: translate(0); text-shadow: 2px 2px var(--c-red), -2px -2px var(--c-neon); }
+            50% { transform: translate(-2px, 1px); text-shadow: -2px 2px var(--c-pink), 2px -2px var(--c-purple); }
+            100% { transform: translate(0); }
         }
 
         /* --- OBJETS FLOTTANTS --- */
@@ -86,19 +87,19 @@
             text-transform: uppercase;
             font-weight: 700;
             display: inline-block;
-            transition: 0.3s;
-            opacity: 0.6;
+            transition: 0.2s;
+            opacity: 0.7;
         }
 
         nav a:hover { 
             opacity: 1; 
             color: var(--c-neon); 
-            animation: soft-glitch 0.2s infinite linear;
+            animation: hover-glitch-soft 0.3s infinite;
         }
 
-        /* --- HEADER (PASSÉ À 85VH) --- */
+        /* --- HEADER (PASSÉ À 70VH) --- */
         header {
-            height: 85vh;
+            height: 70vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -108,7 +109,7 @@
 
         h1 {
             font-family: 'Bungee', cursive;
-            font-size: clamp(3.5rem, 15vw, 9rem);
+            font-size: clamp(3rem, 12vw, 7rem); /* Taille légèrement réduite pour éviter le zoom excessif */
             margin: 0;
             color: white;
             text-shadow: 5px 5px 0px var(--c-purple);
@@ -117,12 +118,12 @@
 
         @keyframes main-float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-15px); }
         }
 
         .subtitle {
-            font-size: 1.2rem;
-            letter-spacing: 6px;
+            font-size: 1.1rem;
+            letter-spacing: 5px;
             text-transform: uppercase;
             background: linear-gradient(90deg, var(--c-neon), var(--c-pink));
             -webkit-background-clip: text;
@@ -130,34 +131,47 @@
             font-weight: bold;
         }
 
-        /* --- CARTES ET BOUTONS --- */
+        /* --- CONTENU --- */
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px 100px 20px;
         }
 
         h2 {
             font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
+            font-size: 2rem;
             border-left: 5px solid var(--c-neon);
             padding-left: 15px;
-            margin: 80px 0 40px 0;
+            margin: 60px 0 30px 0;
         }
 
         .card {
             background: var(--glass);
             border: 1px solid var(--border);
             padding: 25px;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
         .card:hover {
             border-color: var(--c-neon);
-            background: rgba(255, 255, 255, 0.08);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.1);
+            background: rgba(255, 255, 255, 0.07);
         }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .video-box {
+            width: 100%; height: 200px;
+            background: #000; margin-bottom: 15px;
+            border: 1px solid #222;
+        }
+        .video-box video { width: 100%; height: 100%; object-fit: cover; }
 
         .btn {
             display: block;
@@ -176,8 +190,14 @@
         .btn:hover {
             background: var(--c-neon);
             color: black;
-            box-shadow: 0 0 20px var(--c-neon);
-            animation: soft-glitch 0.3s infinite linear;
+            animation: hover-glitch-soft 0.3s infinite;
+        }
+
+        /* --- SKILLS --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
         }
 
         .skill-badge {
@@ -189,17 +209,26 @@
         }
 
         .skill-badge:hover {
-            border-color: var(--c-pink);
-            transform: scale(1.05);
-            color: var(--c-pink);
+            border-color: var(--c-neon);
+            color: var(--c-neon);
+            transform: translateY(-5px);
         }
 
-        .skill-badge i { font-size: 2rem; margin-bottom: 10px; display: block; color: var(--c-neon); }
+        .skill-badge i { font-size: 1.8rem; margin-bottom: 10px; display: block; }
 
         .imagination-badge {
             background: white !important;
             color: black !important;
             font-family: 'Bungee';
+        }
+
+        /* --- CONTACT --- */
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            padding: 40px 0;
         }
 
         .contact-link {
@@ -213,18 +242,9 @@
         }
 
         .contact-link:hover {
-            color: var(--c-neon);
-            transform: translateY(-5px);
-            animation: soft-glitch 0.3s infinite linear;
+            animation: hover-glitch-soft 0.3s infinite;
+            color: var(--c-pink);
         }
-
-        .video-box {
-            width: 100%; height: 180px;
-            background: #000; margin-bottom: 15px;
-            border: 1px solid #222;
-            overflow: hidden;
-        }
-        .video-box video { width: 100%; height: 100%; object-fit: cover; }
 
     </style>
 </head>
@@ -259,7 +279,7 @@
         </section>
 
         <h2 id="projets">Projets Unity</h2>
-        <div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+        <div class="grid">
             <div class="card">
                 <div class="video-box"><video src="assets/ENARIA_OuvertureOnglets.mp4" autoplay loop muted playsinline></video></div>
                 <h3>ENARIA</h3>
@@ -276,7 +296,7 @@
         </div>
 
         <h2 id="competences">Compétences</h2>
-        <div class="skills-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px;">
+        <div class="skills-grid">
             <div class="skill-badge"><i class="fa-solid fa-code"></i><span>C# / .NET</span></div>
             <div class="skill-badge"><i class="fa-solid fa-microchip"></i><span>C++</span></div>
             <div class="skill-badge"><i class="fa-brands fa-unity"></i><span>Unity 6</span></div>
@@ -290,16 +310,16 @@
 
         <section id="contact">
             <h2 style="text-align: center; border: none;">Contact</h2>
-            <div class="contact-container" style="display: flex; justify-content: center; gap: 40px; padding: 40px 0;">
+            <div class="contact-container">
                 <a href="mailto:votre-email@exemple.com" class="contact-link"><i class="fa-solid fa-envelope"></i><span>Email</span></a>
-                <a href="https://linkedin.com" class="contact-link"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>
+                <a href="https://www.linkedin.com/in/votre-profil" class="contact-link"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>
                 <a href="https://github.com/Erenros" class="contact-link"><i class="fa-brands fa-github"></i><span>GitHub</span></a>
             </div>
         </section>
     </div>
 
     <footer style="text-align: center; padding: 60px; opacity: 0.5; font-size: 0.8rem; letter-spacing: 2px;">
-        ERENROS © 2026 - STABLE_CORE_ENGAGED
+        ERENROS © 2026 - CORE_STABLE_V2
     </footer>
 
 </body>
