@@ -9,398 +9,275 @@
     
     <style>
         :root {
-            --bg-color: #080212;
+            --bg-color: #05010a; /* Plus sombre pour faire ressortir les néons */
             --c1: #39ff14; /* Vert Sonic */
             --c2: #ff007f; /* Rose Flash */
             --c3: #00f2ff; /* Cyan */
             --c4: #ffee00; /* Jaune */
-            --glass: rgba(255, 255, 255, 0.08);
-            --round: 30px;
+            --glass: rgba(0, 0, 0, 0.7);
+            --round: 0px; /* Moins de rondeur pour un look plus agressif/glitch */
         }
 
-        /* --- FOND HALLUCINOGÈNE (CHAOS MESH) --- */
+        /* --- FOND CHAOTIQUE & TEXTURE NOISE --- */
         body {
             margin: 0;
             background-color: var(--bg-color);
             color: white;
             font-family: 'Fredoka', sans-serif;
             overflow-x: hidden;
-            background: 
-                radial-gradient(at 0% 0%, rgba(57, 255, 20, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(255, 0, 127, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(0, 242, 255, 0.15) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, rgba(255, 238, 0, 0.15) 0px, transparent 50%);
-            background-attachment: fixed;
-            animation: backgroundChaos 10s infinite alternate;
+            position: relative;
         }
 
-        @keyframes backgroundChaos {
-            0% { filter: hue-rotate(0deg) saturate(1); }
-            100% { filter: hue-rotate(360deg) saturate(1.5); }
-        }
-
-        /* --- NAVIGATION --- */
-        nav {
+        /* Overlay de bruit (Static) */
+        body::before {
+            content: "";
             position: fixed;
-            top: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 800px;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            padding: 12px;
-            border-radius: 50px;
-            border: 2px solid var(--c3);
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 9999;
+            contrast: 150%;
         }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            transition: 0.3s;
+        /* Scanlines style CRT */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 10000;
         }
 
-        nav a:hover {
-            color: var(--c2);
-            text-shadow: 0 0 10px var(--c2);
+        .chaos-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(at 0% 0%, rgba(57, 255, 20, 0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(255, 0, 127, 0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 242, 255, 0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(255, 238, 0, 0.3) 0px, transparent 50%);
+            animation: bgShift 5s infinite alternate;
         }
 
-        /* --- HEADER --- */
-        header {
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+        @keyframes bgShift {
+            0% { filter: hue-rotate(0deg) brightness(1); transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { filter: hue-rotate(90deg) brightness(1.2); transform: scale(1); }
+        }
+
+        /* --- TITRE GLITCH (TRINITY STYLE) --- */
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
         }
 
         h1 {
             font-family: 'Bungee', cursive;
             font-size: clamp(3.5rem, 12vw, 8rem);
-            margin: 0;
-            line-height: 0.9;
-            background: linear-gradient(to bottom, #fff, var(--c3), var(--c2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(5px 5px 0px rgba(255,0,127,0.5));
-            animation: titleShake 0.2s infinite alternate;
-        }
-
-        @keyframes titleShake {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            100% { transform: translate(-1px, -1px) rotate(0.5deg); }
-        }
-
-        .subtitle {
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: var(--c1);
-            background: rgba(0,0,0,0.4);
-            padding: 5px 25px;
-            border-radius: 50px;
-            margin-top: 20px;
-            border: 2px solid var(--c1);
-            box-shadow: 0 0 15px var(--c1);
-        }
-
-        /* --- CONTAINER & STRUCTURE --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 100px 20px;
-        }
-
-        h2 {
-            font-family: 'Bungee', cursive;
-            font-size: 2.5rem;
-            margin: 80px 0 40px 0;
+            position: relative;
             color: white;
-            display: flex;
-            align-items: center;
-            gap: 20px;
+            text-transform: uppercase;
+            animation: mainShake 0.1s infinite;
         }
 
-        h2::after {
-            content: "";
-            flex: 1;
-            height: 4px;
-            background: linear-gradient(to right, var(--c3), transparent);
-            border-radius: 10px;
+        /* Effet de dédoublement RGB */
+        h1::before, h1::after {
+            content: "ERENROS";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent;
         }
 
-        .about-box {
-            background: var(--glass);
-            border-radius: var(--round);
-            padding: 40px;
-            border: 2px solid rgba(255,255,255,0.1);
+        h1::before {
+            left: 3px;
+            text-shadow: -3px 0 var(--c2);
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+            animation: glitchAnim 0.3s infinite;
+        }
+
+        h1::after {
+            left: -3px;
+            text-shadow: 3px 0 var(--c3);
+            clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+            animation: glitchAnim 0.2s infinite reverse;
+        }
+
+        @keyframes glitchAnim {
+            0% { transform: translate(0); clip-path: inset(10% 0 30% 0); }
+            20% { transform: translate(-5px, 5px); }
+            40% { transform: translate(-5px, -5px); clip-path: inset(40% 0 10% 0); }
+            60% { transform: translate(5px, 5px); }
+            80% { transform: translate(5px, -5px); clip-path: inset(80% 0 5% 0); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes mainShake {
+            0% { transform: translate(1px, 1px); }
+            25% { transform: translate(-1px, -1px); }
+            50% { transform: translate(1px, -1px); }
+            75% { transform: translate(-1px, 1px); }
+            100% { transform: translate(0); }
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 15px; left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            background: rgba(255, 0, 127, 0.2);
             backdrop-filter: blur(10px);
-            font-size: 1.2rem;
-            line-height: 1.6;
-            box-shadow: 15px 15px 0px var(--c3);
+            z-index: 11000;
+            padding: 10px;
+            border: 2px solid var(--c1);
+            box-shadow: 5px 5px 0px var(--c3);
         }
 
-        /* --- GRID & CARDS --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 35px;
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 900;
+            font-size: 0.8rem;
+            text-shadow: 2px 2px 0px black;
+        }
+
+        /* --- CARTES & CONTENU --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 100px 20px;
         }
 
         .card {
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: var(--round);
+            background: rgba(0, 0, 0, 0.8);
+            border: 3px solid white;
             padding: 20px;
-            border: 2px solid rgba(255,255,255,0.1);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
-            overflow: hidden; /* Garde le glitch à l'intérieur */
+            transition: 0.1s;
+            margin-bottom: 20px;
         }
 
-        /* EFFET GLITCH INTERACTIF SUR LES CARTES */
         .card:hover {
-            transform: scale(1.03) translateY(-10px);
-            border-color: var(--c2);
-            box-shadow: 
-                -5px -5px 0px var(--c1),
-                5px 5px 0px var(--c3);
-            animation: cardVibrate 0.1s infinite;
-        }
-
-        @keyframes cardVibrate {
-            0% { transform: scale(1.03) translate(1px, 1px); }
-            50% { transform: scale(1.03) translate(-1px, -1px); }
-            100% { transform: scale(1.03) translate(1px, -1px); }
+            border-color: var(--c1);
+            transform: scale(1.02) rotate(1deg);
+            box-shadow: 10px 10px 0px var(--c2), -10px -10px 0px var(--c3);
         }
 
         .video-box {
             width: 100%;
-            height: 220px;
-            background: #000;
-            border-radius: 20px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            border: 2px solid rgba(255,255,255,0.05);
+            background: #111;
+            border: 2px solid #333;
+            filter: contrast(120%) brightness(1.1);
         }
 
-        .video-box video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .card h3 {
-            font-family: 'Bungee', cursive;
-            color: var(--c3);
-            margin: 10px 0;
-            font-size: 1.5rem;
+        h2 {
+            font-family: 'Bungee';
+            background: var(--c2);
+            display: inline-block;
+            padding: 5px 20px;
+            transform: skew(-10deg);
+            margin-bottom: 30px;
         }
 
         .btn {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 12px 25px;
-            background: white;
+            display: block;
+            text-align: center;
+            background: var(--c3);
             color: black;
-            text-decoration: none;
+            padding: 10px;
             font-weight: 900;
-            border-radius: 50px;
-            text-transform: uppercase;
-            transition: 0.3s;
-            border: none;
+            text-decoration: none;
+            border: 3px solid black;
+            box-shadow: 4px 4px 0px white;
         }
 
         .btn:hover {
-            background: var(--c2);
-            color: white;
-            transform: skew(-10deg);
-            box-shadow: 0 0 20px var(--c2);
+            background: var(--c4);
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px white;
         }
 
         /* --- SKILLS --- */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 20px;
-        }
-
-        .skill-badge {
-            background: var(--glass);
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
-            border: 2px solid rgba(255,255,255,0.1);
-            transition: 0.3s;
-        }
-
-        .skill-badge:hover {
-            transform: scale(1.1);
-            background: white;
-            color: black;
-            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
-        }
-
-        .skill-badge i { font-size: 2.5rem; margin-bottom: 10px; display: block; color: var(--c3); }
-        .skill-badge:hover i { color: var(--c2); }
-
-        /* --- L'IMAGINATION (LE CHAOS TOTAL) --- */
         .skill-imagination {
-            background: linear-gradient(45deg, var(--c1), var(--c2), var(--c3));
-            background-size: 200% 200%;
-            color: white !important;
-            border: none;
-            animation: rainbowMove 2s infinite linear, imagineChaos 0.5s infinite alternate;
-            font-weight: 900;
+            animation: blink 0.1s infinite;
         }
 
-        @keyframes rainbowMove {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
+        @keyframes blink {
+            0% { opacity: 1; filter: invert(0); }
+            50% { opacity: 0.8; filter: invert(1); }
+            100% { opacity: 1; filter: invert(0); }
         }
 
-        @keyframes imagineChaos {
-            from { transform: scale(1) rotate(0deg); }
-            to { transform: scale(1.15) rotate(5deg); }
-        }
-
-        /* --- CONTACT --- */
-        .contact-section {
-            background: var(--c2);
-            border-radius: var(--round);
-            padding: 60px;
-            text-align: center;
-            margin-top: 100px;
-            box-shadow: 0 20px 50px rgba(255, 0, 127, 0.3);
-        }
-
-        .contact-link {
-            font-family: 'Bungee', cursive;
-            font-size: 2.5rem;
-            color: white;
-            text-decoration: none;
-            margin: 0 30px;
-            transition: 0.3s;
-        }
-
-        .contact-link:hover {
-            color: black;
-            text-shadow: 4px 4px 0px white;
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px;
-            opacity: 0.5;
-            font-weight: 700;
-        }
-
-        /* --- MOBILE --- */
-        @media (max-width: 600px) {
-            h1 { font-size: 3rem; }
-            .contact-link { font-size: 1.5rem; display: block; margin: 20px 0; }
-        }
     </style>
 </head>
 <body>
 
+    <div class="chaos-bg"></div>
+
     <nav>
-        <a href="#propos">Propos</a>
-        <a href="#projets">Projets</a>
+        <a href="#propos">INFO</a>
+        <a href="#projets">GAMES</a>
         <a href="#cpp">C++</a>
-        <a href="#competences">Skills</a>
-        <a href="#contact">Contact</a>
+        <a href="#competences">SKILLS</a>
+        <a href="#contact">CONTACT</a>
     </nav>
 
-    <header>
-        <h1>ERENROS</h1>
-        <div class="subtitle">DEVELOPER // TRINITY ENCORE STYLE</div>
+    <header style="height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+        <div class="glitch-wrapper">
+            <h1 data-text="ERENROS">ERENROS</h1>
+        </div>
+        <div style="background: black; color: var(--c1); padding: 5px 20px; font-weight: 900; border: 2px solid var(--c1); margin-top: 10px;">
+            > ERROR: TRINITY_ENCORE_SYSTEM_LOADED
+        </div>
     </header>
 
     <div class="container">
-        <div id="propos" class="about-box">
-            <h2>À Propos</h2>
+        <div id="propos" class="card">
+            <h2>DATA_STREAM: À Propos</h2>
             <p>
-                Passionné par les jeux vidéo et la création, j'apprends à devenir développeur. 
-                Je vise le code performant mais surtout le <strong>FUN</strong> et les expériences visuelles hallucinogènes. 
-                Aujourd'hui, je suis étudiant en 3ᵉ année de développement informatique, spécialisé en programmation de jeux vidéo.
+                Apprenti développeur spécialisé dans le <strong>CHAOS VISUEL</strong> et la performance brute. 
+                Étudiant en 3e année de JV. Mon code ne compile pas, il survit.
             </p>
         </div>
 
-        <h2 id="projets">Projets Unity 6</h2>
-        <div class="grid">
+        <h2 id="projets">PROJECT_FILES</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
             <div class="card">
                 <div class="video-box">
-                    <video src="assets/ENARIA_OuvertureOnglets.mp4" autoplay loop muted playsinline></video>
+                    <video src="assets/ENARIA_OuvertureOnglets.mp4" autoplay loop muted playsinline style="width:100%"></video>
                 </div>
                 <h3>ENARIA</h3>
-                <p>Développement d'outils et de l'UI avec une équipe passionnée.</p>
-                <a href="https://github.com/Erenros/ENARIA" class="btn" target="_blank">Git Project</a>
+                <p>Outils UI & Systèmes instables.</p>
+                <a href="#" class="btn">ACCESS_GIT</a>
             </div>
 
             <div class="card">
                 <div class="video-box">
-                    <video src="assets/KindAberation.mp4" autoplay loop muted playsinline></video>
+                    <video src="assets/KindAberation.mp4" autoplay loop muted playsinline style="width:100%"></video>
                 </div>
-                <h3>Shaders VFX</h3>
-                <p>Création d'effets post-process glitch et distorsion optimisés.</p>
-                <a href="https://github.com/Erenros/Shader" class="btn" target="_blank">Git Project</a>
-            </div>
-            
-            <div class="card">
-                <div class="video-box">
-                    <video src="assets/UIUX.mp4" autoplay loop muted playsinline></video>
-                </div>
-                <h3>Interface UI/UX</h3>
-                <p>Focus sur le retour utilisateur et les menus dynamiques.</p>
-                <a href="https://github.com/Erenros/UIUXRevolutionDawn" class="btn" target="_blank">Git Project</a>
+                <h3>SHADERS_VFX</h3>
+                <p>Post-process de destruction oculaire.</p>
+                <a href="#" class="btn">ACCESS_GIT</a>
             </div>
         </div>
 
-        <h2 id="cpp">C++ Zone</h2>
-        <div class="grid">
-            <div class="card">
-                <div class="video-box">
-                    <video src="assets/Moteur.mp4" autoplay loop muted playsinline></video>
-                </div>
-                <h3>Moteur DX12</h3>
-                <p>Architecture moteur bas-niveau avec Direct X 12.</p>
-                <a href="https://github.com/Erenros/Moteur" class="btn" target="_blank">Git Project</a>
-            </div>
-            
-            <div class="card">
-                <div class="video-box">
-                    <video src="assets/IA-Rugby.mp4" autoplay loop muted playsinline></video>
-                </div>
-                <h3>IA Rugby</h3>
-                <p>Simulation sportive avec State Machine complexe.</p>
-                <a href="https://github.com/Erenros/IA-Rugby" class="btn" target="_blank">Git Project</a>
-            </div>
-        </div>
-
-        <h2 id="competences">Compétences</h2>
-        <div class="skills-grid">
-            <div class="skill-badge"><i class="fa-solid fa-code"></i> C# / .NET</div>
-            <div class="skill-badge"><i class="fa-solid fa-microchip"></i> C++</div>
-            <div class="skill-badge"><i class="fa-brands fa-unity"></i> Unity 6</div>
-            <div class="skill-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> VFX</div>
-            <div class="skill-badge skill-imagination"><i class="fa-solid fa-brain"></i> MEGA IMAGINATION</div>
-        </div>
-
-        <div id="contact" class="contact-section">
-            <a href="mailto:votre-email@exemple.com" class="contact-link">EMAIL</a>
-            <a href="https://github.com/Erenros" class="contact-link">GITHUB</a>
+        <h2 id="competences">CORE_SKILLS</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+            <div class="card" style="text-align: center;">C#</div>
+            <div class="card" style="text-align: center;">C++</div>
+            <div class="card" style="text-align: center;">UNITY 6</div>
+            <div class="card skill-imagination" style="text-align: center; background: white; color: black;">ULTRA_IMAGINATION</div>
         </div>
     </div>
 
-    <footer>
-        <p>ERENROS &copy; 2026 // SYSTEM: UNSTABLE // STAY FUN</p>
+    <footer style="text-align: center; padding: 50px; font-family: 'Bungee'; color: var(--c2);">
+        -- SYSTEM STATUS: CRITICAL // ERENROS 2026 --
     </footer>
 
 </body>
