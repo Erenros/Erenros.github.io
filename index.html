@@ -3,75 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erenros | Portfolio - TRINITY EDITION</title>
+    <title>Erenros | Portfolio - CHAOS ROUND</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=VT323&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #0b051a;
-            --sonic-green: #39ff14;
-            --sonic-pink: #ff00ff;
-            --sonic-blue: #00d4ff;
-            --sonic-yellow: #fff000;
-            --glass: rgba(0, 0, 0, 0.6);
-            --border-size: 4px;
+            --bg-color: #080212;
+            --c1: #39ff14; /* Vert Sonic */
+            --c2: #ff007f; /* Rose Flash */
+            --c3: #00f2ff; /* Cyan */
+            --c4: #ffee00; /* Jaune */
+            --glass: rgba(255, 255, 255, 0.08);
+            --round: 30px;
         }
 
-        /* --- ANIMATION HALLUCINOGÈNE DU FOND --- */
+        /* --- FOND HALLUCINOGÈNE (CHAOS MESH) --- */
         body {
             margin: 0;
             background-color: var(--bg-color);
             color: white;
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Fredoka', sans-serif;
             overflow-x: hidden;
-            /* Gradient qui bouge et change de couleur */
-            background: linear-gradient(125deg, #0b051a, #1a0536, #051a1a);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite, acidTrip 10s linear infinite;
+            background: 
+                radial-gradient(at 0% 0%, rgba(57, 255, 20, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(255, 0, 127, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 242, 255, 0.15) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(255, 238, 0, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
+            animation: backgroundChaos 10s infinite alternate;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes acidTrip {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
+        @keyframes backgroundChaos {
+            0% { filter: hue-rotate(0deg) saturate(1); }
+            100% { filter: hue-rotate(360deg) saturate(1.5); }
         }
 
         /* --- NAVIGATION --- */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 800px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
             z-index: 1000;
-            padding: 10px 0;
-            border-bottom: var(--border-size) solid var(--sonic-green);
+            padding: 12px;
+            border-radius: 50px;
+            border: 2px solid var(--c3);
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 10px;
-            font-family: 'VT323', monospace;
-            font-size: 1.4rem;
+            margin: 0 15px;
+            font-weight: 700;
             text-transform: uppercase;
-            transition: 0.2s;
+            font-size: 0.9rem;
+            transition: 0.3s;
         }
 
         nav a:hover {
-            color: var(--sonic-pink);
-            text-shadow: 3px 3px var(--sonic-yellow);
+            color: var(--c2);
+            text-shadow: 0 0 10px var(--c2);
         }
 
         /* --- HEADER --- */
         header {
-            height: 70vh;
+            height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -81,80 +84,110 @@
 
         h1 {
             font-family: 'Bungee', cursive;
-            font-size: clamp(3rem, 10vw, 7rem);
+            font-size: clamp(3.5rem, 12vw, 8rem);
             margin: 0;
-            color: var(--sonic-yellow);
-            text-shadow: 6px 6px 0px var(--sonic-pink), -6px -6px 0px var(--sonic-blue);
-            line-height: 1;
+            line-height: 0.9;
+            background: linear-gradient(to bottom, #fff, var(--c3), var(--c2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(5px 5px 0px rgba(255,0,127,0.5));
+            animation: titleShake 0.2s infinite alternate;
+        }
+
+        @keyframes titleShake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            100% { transform: translate(-1px, -1px) rotate(0.5deg); }
         }
 
         .subtitle {
-            font-family: 'VT323', monospace;
-            font-size: 2rem;
-            background: var(--sonic-green);
-            color: black;
-            padding: 5px 20px;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--c1);
+            background: rgba(0,0,0,0.4);
+            padding: 5px 25px;
+            border-radius: 50px;
             margin-top: 20px;
-            transform: rotate(-2deg);
+            border: 2px solid var(--c1);
+            box-shadow: 0 0 15px var(--c1);
         }
 
-        /* --- STRUCTURE --- */
+        /* --- CONTAINER & STRUCTURE --- */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px 100px 20px;
         }
 
         h2 {
             font-family: 'Bungee', cursive;
             font-size: 2.5rem;
+            margin: 80px 0 40px 0;
             color: white;
-            text-shadow: 4px 4px var(--sonic-blue);
-            margin-top: 60px;
-            margin-bottom: 30px;
-            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        h2::after {
+            content: "";
+            flex: 1;
+            height: 4px;
+            background: linear-gradient(to right, var(--c3), transparent);
+            border-radius: 10px;
         }
 
         .about-box {
             background: var(--glass);
-            border: var(--border-size) solid var(--sonic-blue);
-            padding: 30px;
+            border-radius: var(--round);
+            padding: 40px;
+            border: 2px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
             font-size: 1.2rem;
-            position: relative;
-            box-shadow: 10px 10px 0px var(--sonic-pink);
+            line-height: 1.6;
+            box-shadow: 15px 15px 0px var(--c3);
         }
 
-        /* --- GRILLE DE PROJETS --- */
+        /* --- GRID & CARDS --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
         }
 
         .card {
-            background: black;
-            border: var(--border-size) solid var(--sonic-green);
-            padding: 15px;
-            transition: 0.2s;
-            display: flex;
-            flex-direction: column;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: var(--round);
+            padding: 20px;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            overflow: hidden; /* Garde le glitch à l'intérieur */
         }
 
-        /* Glitch seulement sur la bordure au survol */
+        /* EFFET GLITCH INTERACTIF SUR LES CARTES */
         .card:hover {
-            transform: scale(1.02) rotate(1deg);
-            border-color: var(--sonic-pink);
-            box-shadow: 8px 8px 0px var(--sonic-yellow), -8px -8px 0px var(--sonic-blue);
+            transform: scale(1.03) translateY(-10px);
+            border-color: var(--c2);
+            box-shadow: 
+                -5px -5px 0px var(--c1),
+                5px 5px 0px var(--c3);
+            animation: cardVibrate 0.1s infinite;
+        }
+
+        @keyframes cardVibrate {
+            0% { transform: scale(1.03) translate(1px, 1px); }
+            50% { transform: scale(1.03) translate(-1px, -1px); }
+            100% { transform: scale(1.03) translate(1px, -1px); }
         }
 
         .video-box {
             width: 100%;
-            height: 200px;
-            background: #111;
-            margin-bottom: 15px;
+            height: 220px;
+            background: #000;
+            border-radius: 20px;
+            margin-bottom: 20px;
             overflow: hidden;
-            border: 2px solid #333;
+            border: 2px solid rgba(255,255,255,0.05);
         }
 
         .video-box video {
@@ -165,102 +198,113 @@
 
         .card h3 {
             font-family: 'Bungee', cursive;
+            color: var(--c3);
             margin: 10px 0;
-            color: var(--sonic-blue);
+            font-size: 1.5rem;
         }
 
         .btn {
-            display: block;
-            margin-top: auto;
-            padding: 10px;
-            background: var(--sonic-green);
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 25px;
+            background: white;
             color: black;
             text-decoration: none;
-            font-family: 'Bungee', cursive;
-            text-align: center;
-            transition: 0.2s;
+            font-weight: 900;
+            border-radius: 50px;
+            text-transform: uppercase;
+            transition: 0.3s;
+            border: none;
         }
 
         .btn:hover {
-            background: white;
-            box-shadow: 4px 4px 0px var(--sonic-pink);
+            background: var(--c2);
+            color: white;
+            transform: skew(-10deg);
+            box-shadow: 0 0 20px var(--c2);
         }
 
-        /* --- SECTION C++ (Style plus agressif) --- */
-        .cpp-section {
-            background: rgba(255, 0, 0, 0.1);
-            padding: 40px 20px;
-            margin-top: 50px;
-            border: var(--border-size) dashed red;
-        }
-
-        /* --- COMPETENCES --- */
+        /* --- SKILLS --- */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 20px;
         }
 
         .skill-badge {
-            background: white;
-            color: black;
-            padding: 20px;
+            background: var(--glass);
+            border-radius: 20px;
+            padding: 25px;
             text-align: center;
-            font-family: 'Bungee', cursive;
-            border: 4px solid black;
-            box-shadow: 6px 6px 0px var(--sonic-blue);
-            transition: 0.2s;
+            border: 2px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
         }
 
         .skill-badge:hover {
-            transform: translateY(-5px);
-            background: var(--sonic-yellow);
-            box-shadow: 6px 6px 0px var(--sonic-pink);
+            transform: scale(1.1);
+            background: white;
+            color: black;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
         }
 
-        .skill-badge i { font-size: 2rem; display: block; margin-bottom: 10px; }
+        .skill-badge i { font-size: 2.5rem; margin-bottom: 10px; display: block; color: var(--c3); }
+        .skill-badge:hover i { color: var(--c2); }
 
+        /* --- L'IMAGINATION (LE CHAOS TOTAL) --- */
         .skill-imagination {
-            background: var(--sonic-pink) !important;
+            background: linear-gradient(45deg, var(--c1), var(--c2), var(--c3));
+            background-size: 200% 200%;
             color: white !important;
-            animation: bounce 0.5s infinite alternate;
+            border: none;
+            animation: rainbowMove 2s infinite linear, imagineChaos 0.5s infinite alternate;
+            font-weight: 900;
         }
 
-        @keyframes bounce {
-            from { transform: translateY(0); }
-            to { transform: translateY(-10px); }
+        @keyframes rainbowMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        @keyframes imagineChaos {
+            from { transform: scale(1) rotate(0deg); }
+            to { transform: scale(1.15) rotate(5deg); }
         }
 
         /* --- CONTACT --- */
         .contact-section {
+            background: var(--c2);
+            border-radius: var(--round);
+            padding: 60px;
             text-align: center;
-            margin: 80px 0;
-            padding: 40px;
-            background: var(--sonic-blue);
-            color: black;
+            margin-top: 100px;
+            box-shadow: 0 20px 50px rgba(255, 0, 127, 0.3);
         }
 
         .contact-link {
             font-family: 'Bungee', cursive;
-            font-size: 2rem;
-            color: black;
+            font-size: 2.5rem;
+            color: white;
             text-decoration: none;
-            margin: 0 20px;
+            margin: 0 30px;
+            transition: 0.3s;
         }
 
-        .contact-link:hover { color: white; }
+        .contact-link:hover {
+            color: black;
+            text-shadow: 4px 4px 0px white;
+        }
 
         footer {
             text-align: center;
-            padding: 40px;
-            font-family: 'VT323', monospace;
-            font-size: 1.5rem;
+            padding: 60px;
+            opacity: 0.5;
+            font-weight: 700;
         }
 
-        /* --- MOBILE OPTIMISATION --- */
+        /* --- MOBILE --- */
         @media (max-width: 600px) {
-            h1 { font-size: 3.5rem; }
-            .grid { gap: 20px; }
+            h1 { font-size: 3rem; }
+            .contact-link { font-size: 1.5rem; display: block; margin: 20px 0; }
         }
     </style>
 </head>
@@ -276,7 +320,7 @@
 
     <header>
         <h1>ERENROS</h1>
-        <div class="subtitle">GAME DEVELOPER // ROUND 2</div>
+        <div class="subtitle">DEVELOPER // TRINITY ENCORE STYLE</div>
     </header>
 
     <div class="container">
@@ -284,67 +328,79 @@
             <h2>À Propos</h2>
             <p>
                 Passionné par les jeux vidéo et la création, j'apprends à devenir développeur. 
-                Je vise le code performant mais surtout le **FUN** et les expériences visuelles marquantes. 
-                Actuellement en 3ème année de spécialisation JV.
+                Je vise le code performant mais surtout le <strong>FUN</strong> et les expériences visuelles hallucinogènes. 
+                Aujourd'hui, je suis étudiant en 3ᵉ année de développement informatique, spécialisé en programmation de jeux vidéo.
             </p>
         </div>
 
-        <h2 id="projets">Projets Unity</h2>
+        <h2 id="projets">Projets Unity 6</h2>
         <div class="grid">
             <div class="card">
                 <div class="video-box">
                     <video src="assets/ENARIA_OuvertureOnglets.mp4" autoplay loop muted playsinline></video>
                 </div>
                 <h3>ENARIA</h3>
-                <p>Développement d'outils et de l'UI sur Unity.</p>
-                <a href="https://github.com/Erenros/ENARIA" class="btn" target="_blank">View Code</a>
+                <p>Développement d'outils et de l'UI avec une équipe passionnée.</p>
+                <a href="https://github.com/Erenros/ENARIA" class="btn" target="_blank">Git Project</a>
             </div>
 
             <div class="card">
                 <div class="video-box">
                     <video src="assets/KindAberation.mp4" autoplay loop muted playsinline></video>
                 </div>
-                <h3>Shaders (Unity 6)</h3>
-                <p>Post-process hallucinogènes et visuels glitchés.</p>
-                <a href="https://github.com/Erenros/Shader" class="btn" target="_blank">View Code</a>
+                <h3>Shaders VFX</h3>
+                <p>Création d'effets post-process glitch et distorsion optimisés.</p>
+                <a href="https://github.com/Erenros/Shader" class="btn" target="_blank">Git Project</a>
             </div>
             
-            </div>
-
-        <div id="cpp" class="cpp-section">
-            <h2>Zone C++ (Sans Moteur)</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>Moteur DX12</h3>
-                    <p>Création d'un moteur avec Direct X 12.</p>
-                    <a href="https://github.com/Erenros/Moteur" class="btn" target="_blank">View Code</a>
+            <div class="card">
+                <div class="video-box">
+                    <video src="assets/UIUX.mp4" autoplay loop muted playsinline></video>
                 </div>
-                <div class="card">
-                    <h3>IA State Machine</h3>
-                    <p>Rugby avec IA complexe.</p>
-                    <a href="https://github.com/Erenros/IA-Rugby" class="btn" target="_blank">View Code</a>
-                </div>
+                <h3>Interface UI/UX</h3>
+                <p>Focus sur le retour utilisateur et les menus dynamiques.</p>
+                <a href="https://github.com/Erenros/UIUXRevolutionDawn" class="btn" target="_blank">Git Project</a>
             </div>
         </div>
 
-        <h2 id="competences">Skills</h2>
+        <h2 id="cpp">C++ Zone</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="video-box">
+                    <video src="assets/Moteur.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <h3>Moteur DX12</h3>
+                <p>Architecture moteur bas-niveau avec Direct X 12.</p>
+                <a href="https://github.com/Erenros/Moteur" class="btn" target="_blank">Git Project</a>
+            </div>
+            
+            <div class="card">
+                <div class="video-box">
+                    <video src="assets/IA-Rugby.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <h3>IA Rugby</h3>
+                <p>Simulation sportive avec State Machine complexe.</p>
+                <a href="https://github.com/Erenros/IA-Rugby" class="btn" target="_blank">Git Project</a>
+            </div>
+        </div>
+
+        <h2 id="competences">Compétences</h2>
         <div class="skills-grid">
-            <div class="skill-badge"><i class="fa-solid fa-code"></i> C#</div>
+            <div class="skill-badge"><i class="fa-solid fa-code"></i> C# / .NET</div>
             <div class="skill-badge"><i class="fa-solid fa-microchip"></i> C++</div>
             <div class="skill-badge"><i class="fa-brands fa-unity"></i> Unity 6</div>
-            <div class="skill-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Shaders</div>
-            <div class="skill-badge skill-imagination"><i class="fa-solid fa-brain"></i> Imagination</div>
+            <div class="skill-badge"><i class="fa-solid fa-wand-magic-sparkles"></i> VFX</div>
+            <div class="skill-badge skill-imagination"><i class="fa-solid fa-brain"></i> MEGA IMAGINATION</div>
         </div>
 
         <div id="contact" class="contact-section">
-            <h2>Get in Touch</h2>
-            <a href="mailto:ton-email@exemple.com" class="contact-link">EMAIL</a>
+            <a href="mailto:votre-email@exemple.com" class="contact-link">EMAIL</a>
             <a href="https://github.com/Erenros" class="contact-link">GITHUB</a>
         </div>
     </div>
 
     <footer>
-        <p>ERENROS // 2026 // SYSTEM STABLE (OU PAS)</p>
+        <p>ERENROS &copy; 2026 // SYSTEM: UNSTABLE // STAY FUN</p>
     </footer>
 
 </body>
